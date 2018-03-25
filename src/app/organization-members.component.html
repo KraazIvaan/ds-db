@@ -1,0 +1,10 @@
+<div class="organization-col">
+  <p>Members in organization {{organization.name}}</p>
+    <div class="heroes">
+      <ng-container *ngFor="let member of memsInOrg">
+        <div class="member">
+          <span class="view">{{member.first}} {{member.last}}</span>
+        </div>
+      </ng-container>
+    </div>
+</div>

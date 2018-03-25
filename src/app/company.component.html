@@ -1,0 +1,46 @@
+<div class="company-content">
+  <h1>{{title}}</h1>
+  <div class="company-col">
+
+<!--
+    <ul class="heroes">
+      <li *ngFor="let company of companies"
+        [class.selected]="company === selectedCompany" class="company">
+        <span (click)="onEdit(company)" class="edit">!</span>
+        <span (click)="onDelete(company)" class="delete">X</span>
+        <span (click)="onSelect(company)">{{company.name}}</span>
+      </li>
+    </ul>
+-->
+    <div class="heroes">
+      <ng-container *ngFor="let company of companies"
+        [class.selected]="company === selectedCompany">
+        <div class="company">
+          <span (click)="onEdit(company)" class="edit">!</span>
+          <span (click)="onDelete(company)" class="delete">X</span>
+          <span (click)="onSelect(company)" class="view">{{company.name}}</span>
+        </div>
+      </ng-container>
+    </div>
+
+    <div *ngIf="editedCompany.name.length > 0">
+      <br>
+      Edit {{editedCompany.name}}<br>
+      New Name: <input #editedCompanyName placeholder="{{editedCompany.name}}">
+      <button (click)="onEditSave(editedCompanyName.value); editedCompany.name=''">Save</button>
+      <button (click)="editedCompany.name=''">Cancel</button>
+    </div>
+    <div>
+      <br>
+      <p>Add Company:</p>
+      <input #newCompanyName placeholder="New Company Name">
+      <button (click)="addCompany(newCompanyName.value); newCompanyName.value=''">Add Company</button>
+    </div>
+  </div>
+  <!--<div class="company-col">
+    <p>Right column content</p>
+  </div> -->
+  <div *ngIf="selectedCompany.name.length > 0">
+    <company-members [company]="selectedCompany"></company-members>
+  </div>
+</div>

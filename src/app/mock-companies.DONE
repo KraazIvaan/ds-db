@@ -1,0 +1,28 @@
+import { Company } from './company';
+
+export const COMPS: Company[] = [
+{
+  id: 0,
+  name: "Amazon",
+},
+{
+  id: 1,
+  name: "Boeing",
+},
+{
+  id: 2,
+  name: "Chase",
+},
+{
+  id: 3,
+  name: "Dilletante's",
+},
+{
+  id: 4,
+  name: "Expedia",
+},
+{
+  id: 5,
+  name: "Federal Express",
+}
+];

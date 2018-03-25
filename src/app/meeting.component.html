@@ -1,0 +1,10 @@
+<div class="meeting-col">
+  <div>Topic: {{meeting.topic}}</div>
+  <div>Date: {{meeting.date}}</div>
+  <div>Members attending:<span *ngIf="memsAtMeet.length == 0"> None at this time</span></div>
+  <ul class="heroes" *ngIf="memsAtMeet.length > 0">
+    <li *ngFor="let member of memsAtMeet">
+      <span class="badge">{{member.id}}</span><span>{{member.first}} {{member.last}}</span>
+    </li>
+  </ul>
+</div>

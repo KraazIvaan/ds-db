@@ -1,0 +1,139 @@
+<div class="member-content">
+  <div class="member-col">
+    <p>{{title}}</p>
+    <table>
+      <tr>
+        <td class="label">First Name: </td><td><input [(ngModel)]="member.first"></td>
+      </tr>
+      <tr>
+        <td class="label">Last Name: </td><td><input [(ngModel)]="member.last"></td>
+      </tr>
+      <tr>
+        <td class="label">Street Address: </td><td><input [(ngModel)]="member.address"></td>
+      </tr>
+      <tr>
+        <td class="label">City: </td><td><input [(ngModel)]="member.city"></td>
+      </tr>
+      <tr>
+        <td class="label">State: </td><td><input [(ngModel)]="member.state"></td>
+      </tr>
+      <tr>
+        <td class="label">Zip Code: </td><td><input [(ngModel)]="member.zip"></td>
+      </tr>
+      <tr>
+        <td class="label">Phone #: </td><td><input [(ngModel)]="member.phone"></td>
+      </tr>
+      <tr>
+        <td class="label">Email 1: </td><td><input [(ngModel)]="member.email1"></td>
+      </tr>
+      <tr>
+        <td class="label">Email 2: </td><td><input [(ngModel)]="member.email2"></td>
+      </tr>
+      <tr>
+        <td class="label">LinkedIn: </td><td><input [(ngModel)]="member.linkedin"></td>
+      </tr>
+
+      <tr>
+        <td class="label">Preferred Communication Method: </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="member.prefEmail">Email<br>
+          <input type="checkbox" [(ngModel)]="member.prefText">Text<br>
+          <input type="checkbox" [(ngModel)]="member.prefPhone">Phone<br>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="label">Currently Employed: </td>
+        <td>
+          <input type="radio" [(ngModel)]="currentlyEmployed" [value]="true" checked/>Yes
+          <input type="radio" [(ngModel)]="currentlyEmployed" [value]="false"/>No
+        </td>
+      </tr>
+
+      <tr>
+        <td class="label">From: </td>
+        <td>
+          <input [(ngModel)]="employmentFromDay" size="2" maxlength="2" placeholder="DD">/
+          <input [(ngModel)]="employmentFromMonth" size="2" maxlength="2" placeholder="MM">/
+          <input [(ngModel)]="employmentFromYear" size="4" maxlength="4" placeholder="YYYY">
+        </td>
+      </tr>
+      <tr>
+        <td class="label">To: </td>
+        <td  *ngIf="currentlyEmployed==true">Present</td>
+        <td  *ngIf="currentlyEmployed==false">
+          <input [(ngModel)]="employmentToDay" size="2" maxlength="2" placeholder="DD">/
+          <input [(ngModel)]="employmentToMonth" size="2" maxlength="2" placeholder="MM">/
+          <input [(ngModel)]="employmentToYear" size="4" maxlength="4" placeholder="YYYY">
+        </td>
+      </tr>
+      <tr>
+        <td class="label">Explain what you do using verbs/activities to describe your work: </td><td><input [(ngModel)]="member.employmentDescription"></td>
+      </tr>
+
+      <tr>
+        <td class="label">What groups or teams are supported by your work group? </td><td><input [(ngModel)]="member.supported"></td>
+      </tr>
+      <tr>
+        <td class="label">Briefly list or describe/summarize your prior experience and include names of your past employers: </td><td><input [(ngModel)]="member.priorExp"></td>
+      </tr>
+      <tr>
+        <td class="label">Special skills (e.g.: advanced software, coding, lean/agile processes): </td><td><input [(ngModel)]="member.skills"></td>
+      </tr>
+
+      <tr>
+        <td class="label">Why I joined the group: </td><td><input [(ngModel)]="member.whyJoined"></td>
+      </tr>
+      <tr>
+        <td class="label">Interests: </td><td><input [(ngModel)]="member.interests"></td>
+      </tr>
+      <tr>
+        <td class="label">How the group can help: </td><td><input [(ngModel)]="member.needs"></td>
+      </tr>
+      <tr>
+        <td class="label">What I can do for others: </td><td><input [(ngModel)]="member.canDo"></td>
+      </tr>
+      <tr>
+        <td class="label">Plan A: </td><td><input [(ngModel)]="member.planA"></td>
+      </tr>
+      <tr>
+        <td class="label">Plan B: </td><td><input [(ngModel)]="member.planB"></td>
+      </tr>
+      <tr>
+        <td class="label">Plan C: </td><td><input [(ngModel)]="member.planC"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="dropdown-col">
+    <div>
+      <p>Current or last employment:</p>
+      <select [(ngModel)]="employmentCompany" name="employmentCompany" size="5">
+        <option *ngFor="let company of companies" value="{{company._id}}">{{company.name}}</option>
+      </select>
+    <div>
+    <div>
+      <p> Member has contacts in these companies:</p>
+      <select [(ngModel)]="contactsIn" name="contactsIn" size="5" multiple>
+        <option *ngFor="let company of companies" value="{{company._id}}">{{company.name}}</option>
+      </select>
+    </div>
+    <div>
+      <p> Member is a member of these organizations:</p>
+      <select [(ngModel)]="memberOf" name="memberOf" size="5" multiple>
+        <option *ngFor="let organization of organizations"  value="{{organization._id}}">{{organization.abbreviation}}: {{organization.name}}</option>
+      </select>
+    </div>
+    <div>
+      <p> Member is targeting these companies:</p>
+      <select [(ngModel)]="targets" name="targets" size="5" multiple>
+        <option *ngFor="let company of companies"  value="{{company._id}}">{{company.name}}</option>
+      </select>
+    </div>
+  </div>
+  <button (click)="submit()">Add Member</button>
+  <!--
+  <contacts></contacts>
+  <member-of></member-of>
+  <targets></targets>
+  -->
+</div>

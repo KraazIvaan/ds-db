@@ -1,0 +1,45 @@
+<div class="member-list-content">
+  <h1>{{title}}</h1>
+  <div class="member-list-col">
+    Sort by: <button (click)="first()">first name</button>
+    <button (click)="last()">last name</button>
+    <input [(ngModel)]="filterStr" placeholder="Filter by">
+    <!-- <ul class="heroes"> -->
+    <div class="heroes">
+      <ng-container *ngFor="let member of members"
+        [class.selected]="member === selectedMember">
+        <div *ngIf="sortByLastName==false && filter(member.first, member.last)" class="member">
+          <!-- <input name="selectedMembers" value="{{member._id}}" type="checkbox">-->
+          <span (click)="onEdit(member)" class="edit">!</span>
+          <span (click)="onDelete(company)" class="delete">X</span>
+          <span (click)="onViewMemberDS(member)" class="view">{{member.first}} {{member.last}}</span>
+        </div>
+        <div *ngIf="sortByLastName==true && filter(member.first, member.last)" class="member">
+          <!-- <input name="selectedMembers" value="{{member._id}}" type="checkbox">-->
+          <span (click)="onEdit(member)" class="edit">!</span>
+          <span (click)="onDelete(company)" class="delete">X</span>
+          <span (click)="onViewMemberDS(member)" class="view">{{member.last}}, {{member.first}}</span>
+        </div>
+      </ng-container>
+    </div>
+    <!--
+    <div>
+      <button (click)="viewSelectedMembers()">View Selected Members</button>
+    </div>
+    -->
+    <div>
+      <button (click)="addMember()">Add Member</button>
+    </div>
+    <!--
+    <div *ngIf="selectedMember">
+      <h2>
+        {{selectedMember.first | uppercase }} is the selected Member
+      </h2>
+      <button (click)="gotoDetail()">View Datasheet</button>
+    </div>
+    -->
+  </div>
+  <div *ngIf="selectedMember != null" class="ds-container">
+    <member-ds [member]="selectedMember"></member-ds>
+  </div>
+</div>

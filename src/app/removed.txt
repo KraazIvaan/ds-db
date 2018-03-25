@@ -1,0 +1,66 @@
+From: app.module.ts
+
+import { CompanyService }      from './company.service';
+import { OrganizationService } from './organization.service';
+import { OrganizationListComponent } from './organization-list.component';
+import { CompanyListComponent } from './company-list.component';
+
+    CompanyListComponent,
+    OrganizationListComponent
+
+    CompanyService,
+    OrganizationService
+
+
+--------------------------------------------------------------------------------
+
+From: app-routing.module.ts
+
+import { CompanyListComponent } from './company-list.component';
+import { OrganizationListComponent } from './organization-list.component';
+
+
+  { path: 'companies',     component: CompanyListComponent },
+  { path: 'organizations', component: OrganizationListComponent }
+
+--------------------------------------------------------------------------------
+
+From: member-ds.component.ts:
+
+import { Company } from './company';
+import { CompanyService } from './company.service';
+
+import { Organization } from './organization';
+import { OrganizationService } from './organization.service';
+
+  company = new Company();
+  organization = new Organization();
+  companies: Company[];
+  organizations: Organization[];
+  memberCompanies: Company[];
+  memberOrganizations: Organization[];
+  
+      private companyService: CompanyService,
+      private organizationService: OrganizationService,
+
+  getCompanies(): void {
+    this.companyService.getCompanies().then(companies => this.companies = companies);
+  }
+    
+  getCompany(id: number): void {
+    this.companyService.getCompany(id).then(company => this.company = company);
+  }
+  
+  getOrganizations(): void {
+    this.organizationService.getOrganizations().then(organizations => this.organizations = organizations);
+  }
+    
+  getOrganization(id: number): void {
+    this.organizationService.getOrganization(id).then(organization => this.organization = organization);
+  }
+  
+  //getMemberCompanies(): void {
+  //  for(let entry of this.member.companies) {
+  //    this.memberCompanies.push(this.companies[entry]);
+  //  }
+  //}

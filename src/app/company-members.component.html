@@ -1,0 +1,50 @@
+<!--
+<div class="company-col">
+  <p>Members employed at {{company.name}}</p>
+    <ul class="heroes">
+      <li *ngFor="let member of memsEmpComp">
+        <span class="member">{{member.first}} {{member.last}}</span>
+      </li>
+    </ul>
+  <p>Members with contacts at {{company.name}}</p>
+    <ul class="heroes">
+      <li *ngFor="let member of memsContComp">
+        <span class="member">{{member.first}} {{member.last}}</span>
+      </li>
+    </ul>
+  <p>Members targeting {{company.name}}</p>
+    <ul class="heroes">
+      <li *ngFor="let member of memsTarComp">
+        <span class="member">{{member.first}} {{member.last}}</span>
+      </li>
+    </ul>
+</div>
+-->
+<div class="company-col">
+  <p>Members employed at {{company.name}}</p>
+    <div class="heroes">
+      <ng-container *ngFor="let member of memsEmpComp">
+        <div class="member">
+          <span class="view">{{member.first}} {{member.last}}</span>
+        </div>
+      </ng-container>
+    </div>
+
+  <p>Members with contacts at {{company.name}}</p>
+    <div class="heroes">
+      <ng-container *ngFor="let member of memsContComp">
+        <div class="member">
+          <span class="view">{{member.first}} {{member.last}}</span>
+        </div>
+      </ng-container>
+    </div>
+
+  <p>Members targeting {{company.name}}</p>
+    <div class="heroes">
+      <ng-container *ngFor="let member of memsTarComp">
+        <div class="member">
+          <span class="view">{{member.first}} {{member.last}}</span>
+        </div>
+      </ng-container>
+    </div>
+</div>

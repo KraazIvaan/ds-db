@@ -1,0 +1,37 @@
+export class Member {
+  _id: string;
+  lastEditDate: string;
+  first: string;
+  last: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  email1: string;
+  email2: string;
+  phone: string;
+  prefEmail: string;
+  prefText: string;
+  prefPhone: string;
+  linkedin: string;
+  joinDate: string;
+  currentlyEmployed: boolean;
+  employmentFrom: string;
+  employmentTo: string;
+  employmentCompany: string;
+  employmentDescription: string;
+  whatDo: string;
+  supported: string;
+  priorExp: string;
+  skills: string;
+  whyJoined: string;
+  interests: string;
+  needs: string;
+  canDo: string;
+  companies: Array<string>;
+  organizations: Array<string>;
+  planA: string;
+  planB: string;
+  planC: string;
+  targets: Array<string>;
+}

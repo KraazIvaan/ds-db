@@ -1,0 +1,48 @@
+<div class="meeting-content">
+  <h1>{{title}}</h1>
+  <div class="meeting-col">
+    <div class="heroes">
+      <div>{{currMonth}}</div>
+      <ng-container *ngFor="let meeting of meetings"
+        [class.selected]="meeting === selectedMeeting">
+        <div class="meeting">
+          <span (click)="onEdit(meeting)" class="edit">{{meeting.date.getDate()}}</span>
+    	  <!-- <span (click)="onDelete(meeting)" class="delete">X</span>-->
+          <span (click)="onSelect(meeting)">{{meeting.topic}}</span>
+        </div>
+      </ng-container>
+    </div>
+    <div class="heroes">
+      <div>{{nextMonth}}</div>
+      <!--
+      <ng-container *ngFor="let meeting of meetings"
+        [class.selected]="meeting === selectedMeeting">
+        <div class="meeting">
+          <span (click)="onEdit(meeting)" class="edit">!</span>
+    	  <!-- <span (click)="onDelete(meeting)" class="delete">X</span>
+          <span (click)="onSelect(meeting)">{{meeting.date}} {{meeting.topic}}</span>
+        </div>
+      </ng-container>
+      -->
+    </div>
+    <!--
+    <div *ngIf="editedCompany.name.length > 0">
+      <br>
+	  Edit {{editedCompany.name}}<br>
+	  New Name: <input #editedCompanyName placeholder="{{editedCompany.name}}">
+	  <button (click)="onEditSave(editedCompanyName.value); editedCompany.name=''">Save</button>
+	  <button (click)="editedCompany.name=''">Cancel</button>
+	</div>
+	<div>
+	  <br>
+	    <p>Add Company:</p>
+	    <input #newCompanyName placeholder="New Company Name">
+	    <button (click)="addCompany(newCompanyName.value); newCompanyName.value=''">Add Company</button>
+    </div>
+    -->
+  </div>
+  <!--[meeting]="selectedMeeting" in next line-->
+  <div *ngIf="selectedMeeting.topic.length > 0">
+    <meeting-details [meeting]="selectedMeeting"></meeting-details>
+  </div>
+</div>

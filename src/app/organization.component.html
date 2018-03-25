@@ -1,0 +1,43 @@
+<div class="organization-content">
+  <h1>{{title}}</h1>
+  <div class="add-org">
+    <p>Add Organization:</p>
+    <input class="new-org-field" #newOrganizationName placeholder="Name"><br>
+    <input class="new-org-field" #newOrganizationAbbrev placeholder="Abbreviation"><br>
+    <button (click)="addOrganization(newOrganizationName.value, newOrganizationAbbrev.value); newOrganizationName.value=''; newOrganizationAbbrev.value=''">Add</button>
+  </div>
+  <div class="organization-col">
+    <div class="heroes">
+      <ng-container *ngFor="let organization of organizations"
+        [class.selected]="organization === selectedOrganization">
+        <div class="organization">
+          <span (click)="onEdit(organization)" class="edit">!</span>
+          <span (click)="onDelete(organization)" class="delete">X</span>
+          <span (click)="onSelect(organization)">
+            <span *ngIf="organization.abbreviation.length != 0">{{organization.abbreviation}}: </span>{{organization.name}}
+          </span>
+        </div>
+      </ng-container>
+    </div>
+    <div *ngIf="editedOrganization.name.length > 0">
+      <br>
+      Edit {{editedOrganization.name}}<br>
+      New Name: <input #editedOrganizationName placeholder="{{editedOrganization.name}}"><br>
+      New Abbreviation: <input #editedOrganizationAbbreviation placeholder="{{editedOrganization.abbreviation}}">
+      <button (click)="onEditSave(editedOrganizationName.value, editedOrganizationAbbreviation.value); editedOrganization.name=''; editedOrganization.abbreviation=''">Save</button>
+      <button (click)="editedOrganization.name=''; editedOrganization.abbreviation=''">Cancel</button>
+    </div>
+    <!--
+    <div>
+      <br>
+      <p>Add Organization:</p>
+      <input #newOrganizationName placeholder="New Organization Name"><br>
+      <input #newOrganizationAbbrev placeholder="New Organization Abbreviation"><br>
+      <button (click)="addOrganization(newOrganizationName.value, newOrganizationAbbrev.value); newOrganizationName.value=''; newOrganizationAbbrev.value=''">Add Organization</button>
+    </div>
+    -->
+  </div>
+  <div *ngIf="selectedOrganization.name.length > 0">
+    <organization-members [organization]="selectedOrganization"></organization-members>
+  </div>
+</div>

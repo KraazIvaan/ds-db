@@ -1,0 +1,8 @@
+<h1>{{title}}</h1>
+<ul class="heroes">
+  <li *ngFor="let organization of organizations"
+    [class.selected]="organization === selectedOrganization"
+    (click)="onSelect(organization)">
+    <span class="badge">{{organization.id}}</span> {{organization.abbreviation}}: {{organization.name}}
+  </li>
+</ul>
