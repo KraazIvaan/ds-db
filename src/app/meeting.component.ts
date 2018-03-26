@@ -17,6 +17,7 @@ import { MeetingService } from './meeting.service';
 export class MeetingComponent implements OnChanges {
   @Input() meeting: Meeting;
   meetingDate: string;
+  meetingMonth: string;
   memsAtMeet: Member[];
 
   constructor(
@@ -29,10 +30,20 @@ export class MeetingComponent implements OnChanges {
   getMemsAtMeet(): void {
     this.memberService.getMembersAtMeeting(this.meeting._id).subscribe(members => this.memsAtMeet = members);
   }
+  
+  getMeetingDate(): void {
+    let d = new Date(this.meeting.date);
+    this.meetingDate = d.toLocaleDateString(undefined, {  
+      day : 'numeric',
+      month : 'long',
+      year : 'numeric'
+    })
+  }
 
   ngOnChanges(): void {
     console.log('meeting component onChanges called');
     this.getMemsAtMeet();
+    this.getMeetingDate();
     /*
     this.route.params
       .switchMap((params: Params) => this.meetingService.getMeeting(params['id']))

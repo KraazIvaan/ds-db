@@ -92,7 +92,9 @@ button:hover {
 .company-col {
   font-family: "Arial", sans;
   float: left;
-  width: 400px;
+  width: 420px;
+  height: 700px;
+  overflow: auto;
   border: 1px solid black;
   margin: 5px;
   padding: 5px;

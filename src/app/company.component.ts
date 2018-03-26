@@ -24,10 +24,23 @@ export class CompanyComponent {
   getCompanies(): void {
     this.companyService.getCompanies().subscribe(companies => {
       this.companies = companies;
+      this.sortComps();
       console.log('companies got');
     });
   }
 
+  sortFunc(a,b): number {
+    if (a.name < b.name)
+      return -1;
+    if (a.name > b.name)
+      return 1;
+    return 0;
+  }
+  
+  sortComps(): void {
+    this.companies.sort(this.sortFunc);
+  }
+  
   ngOnInit(): void {
     this.editedCompany = {_id:'',name:''};
     this.selectedCompany = {_id:'',name:''};

@@ -22,7 +22,10 @@ export class OrganizationComponent {
   ) { }
 
   getOrganizations(): void {
-    this.organizationService.getOrganizations().subscribe(organizations => this.organizations = organizations);
+    this.organizationService.getOrganizations().subscribe(organizations => {
+      this.organizations = organizations;
+      this.sortOrgs();
+    });
   }
 
   ngOnInit(): void {
@@ -30,7 +33,19 @@ export class OrganizationComponent {
     this.selectedOrganization = {_id:'',name:'',abbreviation:''};
     this.getOrganizations();
   }
+
+  sortFunc(a,b): number {
+    if (a.name < b.name)
+      return -1;
+    if (a.name > b.name)
+      return 1;
+    return 0;
+  }
   
+  sortOrgs(): void {
+    this.organizations.sort(this.sortFunc);
+  }
+
   filter(name): boolean {
     if(this.filterStr == '') {
       return true;   

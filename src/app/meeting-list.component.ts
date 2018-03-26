@@ -41,12 +41,42 @@ export class MeetingListComponent implements OnInit {
     });
   }
   
-  getMeetingsCurrNext(year: number, month:number): void {
-    // this function takes a year and month, and gets the meetings for that month and next
+  // this function takes a year and month, and gets the meetings for that month and next
+  getMeetingsCurrNext(year: number, month:number): void {  
     let yStr = year.toString();
     let mStr = month.toString();
     this.meetingService.getMeetingsYM(yStr, mStr).subscribe( meetings => {
-      this.meetings = meetings;
+      // set the dayOfMonth field for each meeting returned
+      for(let m of meetings) {
+        //console.log(m);
+        //m.getDate();
+        let d = new Date(m.date);
+        m.dayOfMonth = d.getDate().toString();
+      }
+      this.currMeetings = meetings;
+    });
+    
+    // if the current month is not December, increment the month.  If the month is December,
+    // increment the year and set the month to January
+    if(month != 11) {
+      month++;
+    }
+    else {
+      year++;
+      month = 0;
+    }
+    
+    yStr = year.toString();
+    mStr = month.toString();
+    this.meetingService.getMeetingsYM(yStr, mStr).subscribe( meetings => {
+      // set the dayOfMonth field for each meeting returned
+      for(let m of meetings) {
+        //console.log(m);
+        //m.getDate();
+        let d = new Date(m.date);
+        m.dayOfMonth = d.getDate().toString();
+      }
+      this.nextMeetings = meetings;
     });
   }
 
@@ -58,8 +88,7 @@ export class MeetingListComponent implements OnInit {
 
     // the current test data in the DB has the month set to 4
     currYear = this.currDate.getFullYear();
-    // currDateNum = this.currDate.getMonth();
-    currDateNum = 4;
+    currDateNum = this.currDate.getMonth();
     
     // get next month
     if( currDateNum != 11) {
@@ -80,7 +109,7 @@ export class MeetingListComponent implements OnInit {
     // get the meetings from next month
     //this.nextMeetings = this.getMeetingsYM(currYear, nextDateNum);
     
-    this.selectedMeeting = {_id:'',date:'',topic:'',members:[]};
+    this.selectedMeeting = new Meeting();
     //this.getMeetings();
 
   }

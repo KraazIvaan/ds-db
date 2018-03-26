@@ -20,11 +20,26 @@ export class CompanyListComponent {
   ) { }
 
   getCompanies(): void {
-    this.companyService.getCompanies().subscribe(companies => this.companies = companies);
+    this.companyService.getCompanies().subscribe(companies => {
+      this.companies = companies;
+      this.sortComps();
+    });
   }
 
   ngOnInit(): void {
     this.getCompanies();
+  }
+
+  sortFunc(a,b): number {
+    if (a.name < b.name)
+      return -1;
+    if (a.name > b.name)
+      return 1;
+    return 0;
+  }
+  
+  sortComps(): void {
+    this.companies.sort(this.sortFunc);
   }
   
   //onSelect(member: Member): void {

@@ -92,8 +92,9 @@ button:hover {
 .member-list-col {
   font-family: "Arial", sans;
   float: left;
-  width: 400px;
+  width: 430px;
   border: 1px solid black;
+  overflow: auto;
   margin: 5px;
   padding: 5px;
   background-color: #FFFFFF;

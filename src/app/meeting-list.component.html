@@ -3,10 +3,10 @@
   <div class="meeting-col">
     <div class="heroes">
       <div>{{currMonth}}</div>
-      <ng-container *ngFor="let meeting of meetings"
+      <ng-container *ngFor="let meeting of currMeetings"
         [class.selected]="meeting === selectedMeeting">
         <div class="meeting">
-          <span (click)="onEdit(meeting)" class="edit">{{meeting.date.getDate()}}</span>
+          <span (click)="onEdit(meeting)" class="edit">{{meeting.dayOfMonth}}</span>
     	  <!-- <span (click)="onDelete(meeting)" class="delete">X</span>-->
           <span (click)="onSelect(meeting)">{{meeting.topic}}</span>
         </div>
@@ -14,16 +14,14 @@
     </div>
     <div class="heroes">
       <div>{{nextMonth}}</div>
-      <!--
-      <ng-container *ngFor="let meeting of meetings"
+      <ng-container *ngFor="let meeting of nextMeetings"
         [class.selected]="meeting === selectedMeeting">
         <div class="meeting">
-          <span (click)="onEdit(meeting)" class="edit">!</span>
-    	  <!-- <span (click)="onDelete(meeting)" class="delete">X</span>
-          <span (click)="onSelect(meeting)">{{meeting.date}} {{meeting.topic}}</span>
+          <span (click)="onEdit(meeting)" class="edit">{{meeting.dayOfMonth}}</span>
+    	  <!-- <span (click)="onDelete(meeting)" class="delete">X</span>-->
+          <span (click)="onSelect(meeting)">{{meeting.topic}}</span>
         </div>
       </ng-container>
-      -->
     </div>
     <!--
     <div *ngIf="editedCompany.name.length > 0">

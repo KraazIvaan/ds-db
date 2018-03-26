@@ -81,6 +81,7 @@ button:hover {
   border-radius: 4px;
 }
 .meeting-col {
+  font-family: "Arial", sans;
   float: left;
   width: 500px;
   border: 1px solid black;

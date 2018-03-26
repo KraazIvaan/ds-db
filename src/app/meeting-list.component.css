@@ -82,7 +82,7 @@ button:hover {
   background-color: #fff0f0;
   margin: .5em;
   padding: .3em 0;
-  height: 1.6em;
+  height: 3em;
   border-radius: 4px;
   border: 1px solid black;
 }
@@ -92,8 +92,10 @@ button:hover {
 .meeting-col {
   font-family: "Arial", sans;
   float: left;
-  width: 400px;
+  width: 420px;
+  height: 700px;
   border: 1px solid black;
+  overflow: auto;
   margin: 5px;
   padding: 5px;
   background-color: #FFFFFF;
