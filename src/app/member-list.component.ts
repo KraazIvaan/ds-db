@@ -23,6 +23,7 @@ export class MemberListComponent {
   ) { }
 
   getMembers(): void {
+    console.log('in getMembers');
     this.memberService.getMembers().subscribe(members => this.members = members);
   }
 

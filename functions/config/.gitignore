@@ -1,0 +1,3 @@
+# do not include the file db.js
+# make sure to copy this manually to anywhere it is needed
+db.js

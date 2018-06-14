@@ -15,7 +15,11 @@ const httpOptions = {
 
 @Injectable()
 export class MemberService {
-  private membersUrl = 'http://localhost:8000/members/';
+  //private membersUrl = 'http://localhost:8000/api/members/';
+  //private membersUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/members';
+  private membersUrl = '/api/members/';
+  
+
   private memEmpCompUrl = 'http://localhost:8000/members-company-employed/';
   private memContCompUrl = 'http://localhost:8000/members-company-contacts/';
   private memTarCompUrl = 'http://localhost:8000/members-company-targets/';
@@ -25,6 +29,7 @@ export class MemberService {
   private addMemberUrl = 'http://localhost:8000/add-member/';
   private editMemberUrl = 'http://localhost:8000/edit-member/';
   private deleteMemberUrl = 'http://localhost:8000/delete-member/';
+
 
   constructor(
     private http: HttpClient,
