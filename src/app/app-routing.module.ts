@@ -1,23 +1,25 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AddMemberComponent }  from './add-member.component';
-import { DashboardComponent }   from './dashboard.component';
-import { LoginComponent } from "./login/login.component";
-//import { MemberEditComponent }  from './member-edit.component';
-import { MemberListComponent }  from './member-list.component';
-import { MeetingListComponent }  from './meeting-list.component';
-import { MemberDsComponent }    from './member-ds.component';
-import { CompanyComponent }     from './company.component';
-import { OrganizationComponent }     from './organization.component';
+import { AddMemberComponent }  from './components/add-member/add-member.component';
+import { CompanyListComponent }     from './components/company-list/company-list.component';
+import { IndustryListComponent }     from './components/industry-list/industry-list.component';
+import { LoginComponent } from "./components/login/login.component";
+import { MemberEditComponent }  from './components/member-edit/member-edit.component';
+import { MeetingListComponent }  from './components/meeting-list/meeting-list.component';
+import { MemberListComponent }  from './components/member-list/member-list.component';
+import { MemberDsComponent }    from './components/member-ds/member-ds.component';
+import { OccupationListComponent }     from './components/occupation-list/occupation-list.component';
+import { OrganizationListComponent }     from './components/organization-list/organization-list.component';
 
-import { AuthGuard } from "./services/auth-guard.service";
+
+
+import { AuthGuard } from "./services/auth-guard/auth-guard.service";
 
 //  { path: 'edit/:id',    component: MemberEditComponent },
 /* original, before adding anything for auth
 const routes: Routes = [
   { path: '', redirectTo: '/members', pathMatch: 'full' },
-  { path: 'dashboard',     component: DashboardComponent },
   { path: 'member/:id',    component: MemberDsComponent },
   { path: 'members',       component: MemberListComponent },
   { path: 'companies',     component: CompanyComponent },
@@ -34,11 +36,6 @@ const routes: Routes = [
     //redirectTo: '/members', pathMatch: 'full'
   },
   {
-    path: 'dashboard',
-    canActivate: [AuthGuard],
-    component: DashboardComponent
-  },
-  {
     path: 'member/:id',
     canActivate: [AuthGuard],
     component: MemberDsComponent
@@ -51,17 +48,32 @@ const routes: Routes = [
   {
     path: 'companies',
     canActivate: [AuthGuard],
-    component: CompanyComponent
+    component: CompanyListComponent
   },
   {
     path: 'organizations',
     canActivate: [AuthGuard],
-    component: OrganizationComponent
+    component: OrganizationListComponent
+  },
+    {
+    path: 'industries',
+    canActivate: [AuthGuard],
+    component: IndustryListComponent
+  },
+  {
+    path: 'occupations',
+    canActivate: [AuthGuard],
+    component: OccupationListComponent
   },
   {
     path: 'add-member',
     canActivate: [AuthGuard],
     component: AddMemberComponent
+  },
+  {
+    path: 'member-edit',
+    canActivate: [AuthGuard],
+    component: MemberEditComponent
   },
   {
     path: 'meetings',

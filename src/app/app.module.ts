@@ -10,29 +10,37 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from 'app/services/auth-guard.service';
+import { AuthService } from './services/auth/auth.service';
+import { AuthGuard } from './services/auth-guard/auth-guard.service';
 // END imports for auth
 
-import { AddMemberComponent }      from './add-member.component';
-import { AppComponent }            from './app.component';
-import { CompanyComponent }        from './company.component';
-import { CompanyMembersComponent } from './company-members.component';
-import { OrganizationComponent }   from './organization.component';
-import { OrganizationMembersComponent } from './organization-members.component';
-import { DashboardComponent }      from './dashboard.component';
-import { MemberDsComponent }       from './member-ds.component';
-import { MemberListComponent }     from './member-list.component';
-import { MemberEditComponent }     from './member-edit.component';
-import { MeetingListComponent }    from './meeting-list.component';
-import { MeetingComponent }        from './meeting.component';
+// Components
+import { AddMemberComponent }           from './components/add-member/add-member.component';
+import { AppComponent }                 from './app.component';
+import { CompanyListComponent }         from './components/company-list/company-list.component';
+import { CompanyMembersComponent }      from './components/company-members/company-members.component';
+import { IndustryListComponent }         from './components/industry-list/industry-list.component';
+import { LoginComponent }               from './components/login/login.component';
+import { MeetingListComponent }         from './components/meeting-list/meeting-list.component';
+import { MeetingComponent }             from './components/meeting/meeting.component';
+import { MemberDsComponent }            from './components/member-ds/member-ds.component';
+import { MemberListComponent }          from './components/member-list/member-list.component';
+import { MemberEditComponent }          from './components/member-edit/member-edit.component';
+import { NavBarComponent }              from './components/nav-bar/nav-bar.component';
+import { OccupationListComponent }      from './components/occupation-list/occupation-list.component';
+import { OrganizationListComponent }    from './components/organization-list/organization-list.component';
+import { OrganizationMembersComponent } from './components/organization-members/organization-members.component';
 
-import { MemberService }           from './member.service';
-import { CompanyService }          from './company.service';
-import { OrganizationService }     from './organization.service';
-import { MeetingService }          from './meeting.service';
-import { LoginComponent } from './login/login.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+// Services
+import { CompanyService }      from './services/company/company.service';
+import { IndustryService }     from './services/industry/industry.service';
+import { MeetingService }      from './services/meeting/meeting.service';
+import { MemberService }       from './services/member/member.service';
+import { OccupationService }   from './services/occupation/occupation.service';
+import { OrganizationService } from './services/organization/organization.service';
+
+
+
 
 @NgModule({
   imports: [
@@ -40,18 +48,20 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
+    //AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
   declarations: [
     AddMemberComponent,
     AppComponent,
-    CompanyComponent,
+    CompanyListComponent,
     CompanyMembersComponent,
-    OrganizationComponent,
+    IndustryListComponent,
+    OccupationListComponent,
+    OrganizationListComponent,
     OrganizationMembersComponent,
-    DashboardComponent,
     MemberDsComponent,
     MemberListComponent,
     MemberEditComponent,
@@ -60,7 +70,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     LoginComponent,
     NavBarComponent,
   ],
-  providers: [ CompanyService, MemberService, OrganizationService, MeetingService, AuthService, AuthGuard ],
+  providers: [ CompanyService, IndustryService, MemberService, OccupationService, OrganizationService, MeetingService, AuthService, AuthGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -1,0 +1,10 @@
+<div class="nav">
+  <span>Logged in as:  {{email}} </span>
+  <a routerLink="/members" routerLinkActive="active">Members</a>
+  <a routerLink="/companies" routerLinkActive="active" >Companies</a>
+  <a routerLink="/organizations" routerLinkActive="active" >Organizations</a>
+  <a routerLink="/industries" routerLinkActive="active" >Industries</a>
+  <a routerLink="/occupations" routerLinkActive="active" >Occupations</a>
+  <a routerLink="/meetings" routerLinkActive="active" >Meetings</a>
+  <a href="" (click)="authService.logout()">Logout</a>
+</div>

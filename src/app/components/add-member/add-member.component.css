@@ -1,0 +1,49 @@
+.member-col {
+  float: left;
+  width: 1000px;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+  background-color: #FFFFFF;
+}
+
+.accordion-section {
+  border: 1px solid black;
+}
+
+.accordion-section-head {
+  height: 25px;
+  background-color: #AAAAFF;
+
+}
+
+.accordion-section-body {
+background-color: #FFAAAA;
+display: none;
+}
+
+/* Contact Information */
+#body-1 {
+  height: 350px;
+  display: block;
+}
+
+/* Current / Most Recent Employment */
+#body-2 {
+  
+}
+
+/* Skills & History */
+#body-3 {
+  
+}
+
+/* Group Interaction */
+#body-4 {
+  
+}
+
+/* Goals & Targets*/
+#body-5 {
+  
+}
