@@ -2,6 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AddMemberComponent }  from './components/add-member/add-member.component';
+import { BlankComponent }  from '././components/blank/blank.component';
 import { CompanyListComponent }     from './components/company-list/company-list.component';
 import { IndustryListComponent }     from './components/industry-list/industry-list.component';
 import { LoginComponent } from "./components/login/login.component";
@@ -32,7 +33,8 @@ const routes: Routes = [
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent
+    //component: LoginComponent
+    component: BlankComponent
     //redirectTo: '/members', pathMatch: 'full'
   },
   {

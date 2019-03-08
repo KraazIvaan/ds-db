@@ -4,6 +4,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
+import { AuthService } from '../../services/auth/auth.service';
+
 @Component({
   selector: 'nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -12,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 export class NavBarComponent implements OnInit {
   email = '';
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     var user = firebase.auth().currentUser;
@@ -27,6 +29,10 @@ export class NavBarComponent implements OnInit {
                    // this value to authenticate with your backend server, if
                    // you have one. Use User.getToken() instead.
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

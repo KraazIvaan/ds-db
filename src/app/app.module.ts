@@ -17,9 +17,11 @@ import { AuthGuard } from './services/auth-guard/auth-guard.service';
 // Components
 import { AddMemberComponent }           from './components/add-member/add-member.component';
 import { AppComponent }                 from './app.component';
+import { BlankComponent }               from './components/blank/blank.component';
 import { CompanyListComponent }         from './components/company-list/company-list.component';
 import { CompanyMembersComponent }      from './components/company-members/company-members.component';
-import { IndustryListComponent }         from './components/industry-list/industry-list.component';
+import { HeaderComponent }              from './components/header/header.component';
+import { IndustryListComponent }        from './components/industry-list/industry-list.component';
 import { LoginComponent }               from './components/login/login.component';
 import { MeetingListComponent }         from './components/meeting-list/meeting-list.component';
 import { MeetingComponent }             from './components/meeting/meeting.component';
@@ -39,9 +41,6 @@ import { MemberService }       from './services/member/member.service';
 import { OccupationService }   from './services/occupation/occupation.service';
 import { OrganizationService } from './services/organization/organization.service';
 
-
-
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -56,8 +55,10 @@ import { OrganizationService } from './services/organization/organization.servic
   declarations: [
     AddMemberComponent,
     AppComponent,
+    BlankComponent,
     CompanyListComponent,
     CompanyMembersComponent,
+    HeaderComponent,
     IndustryListComponent,
     OccupationListComponent,
     OrganizationListComponent,
@@ -69,8 +70,18 @@ import { OrganizationService } from './services/organization/organization.servic
     MeetingComponent,
     LoginComponent,
     NavBarComponent,
+    BlankComponent,
   ],
-  providers: [ CompanyService, IndustryService, MemberService, OccupationService, OrganizationService, MeetingService, AuthService, AuthGuard ],
+  providers: [
+    CompanyService,
+    IndustryService,
+    MemberService,
+    OccupationService,
+    OrganizationService,
+    MeetingService,
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
