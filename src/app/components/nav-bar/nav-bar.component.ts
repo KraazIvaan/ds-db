@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+	index = -1;
   email = '';
 
   constructor(public authService: AuthService) { }
@@ -29,7 +30,11 @@ export class NavBarComponent implements OnInit {
                    // this value to authenticate with your backend server, if
                    // you have one. Use User.getToken() instead.
     }
-  }
+	}
+	
+	select(id: number) {
+		this.index = id;
+	}
 
   logout() {
     this.authService.logout();

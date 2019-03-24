@@ -73,7 +73,7 @@ const routes: Routes = [
     component: AddMemberComponent
   },
   {
-    path: 'member-edit',
+    path: 'member-edit/:id',
     canActivate: [AuthGuard],
     component: MemberEditComponent
   },

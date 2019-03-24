@@ -1,48 +1,29 @@
-<!-- <h1>{{title}}</h1> -->
-<div class="industry-content">
-  <h1>{{title}}</h1>
-  <div class="industry-col">
+<div class="industry-list-col">
 
-<!--
-    <ul class="heroes">
-      <li *ngFor="let industry of companies"
-        [class.selected]="industry === selectedIndustry" class="industry">
-        <span (click)="onEdit(industry)" class="edit">!</span>
-        <span (click)="onDelete(industry)" class="delete">X</span>
-        <span (click)="onSelect(industry)">{{industry.name}}</span>
-      </li>
-    </ul>
--->
-    <span>Filter by: </span><input [(ngModel)]="filterStr" placeholder="Filter text">
-    <div class="heroes">
-      <ng-container *ngFor="let industry of industries"
-        [class.selected]="industry === selectedIndustry">
-        <div *ngIf="filter(industry.name)" class="industry" (click)="onSelect(industry)">
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onEdit(industry)" class="edit">!</span>
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onDelete(industry)" class="delete">X</span>
-          <span class="view">{{industry.name}}</span>
-        </div>
-      </ng-container>
-    </div>
+	<span>Filter by: </span><input [(ngModel)]="filterStr" placeholder="Filter text">
+	<div class="industries">
+		<ng-container *ngFor="let industry of industries">
+			<div *ngIf="filter(industry.name)" class="industry" [class.selected]="industry === selectedIndustry" (click)="onSelect(industry)">
+				<!--<span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onEdit(industry)" class="edit">!</span>
+				<span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onDelete(industry)" class="delete">X</span>-->
+				<span class="view">{{industry.name}}</span>
+			</div>
+		</ng-container>
+	</div>
 
-    <div *ngIf="editedIndustry.name.length > 0">
-      <br>
-      Edit {{editedIndustry.name}}<br>
-      New Name: <input #editedIndustryName placeholder="{{editedIndustry.name}}">
-      <button (click)="onEditSave(editedIndustryName.value); editedIndustry.name=''">Save</button>
-      <button (click)="editedIndustry.name=''">Cancel</button>
-    </div>
-    <div *ngIf="email == 'phil.berman@mailinator.com'" >
-      <br>
-      <p>Add Industry:</p>
-      <input #newIndustryName placeholder="New Industry Name">
-      <button (click)="addIndustry(newIndustryName.value); newIndustryName.value=''">Add Industry</button>
-    </div>
-  </div>
-  <!--<div class="industry-col">
-    <p>Right column content</p>
-  </div> -->
-  <div *ngIf="selectedIndustry.name.length > 0">
-    <!--<industry-members [industry]="selectedIndustry"></industry-members> -->
-  </div>
+	<!--<div *ngIf="editedIndustry.name.length > 0">
+		<br>
+		Edit {{editedIndustry.name}}<br>
+		New Name: <input #editedIndustryName placeholder="{{editedIndustry.name}}">
+		<button (click)="onEditSave(editedIndustryName.value); editedIndustry.name=''">Save</button>
+		<button (click)="editedIndustry.name=''">Cancel</button>
+	</div>-->
+	<div>
+		<br>
+		<p>Add Industry:</p>
+		<input #newIndustryName placeholder="New Industry Name">
+		<button (click)="addIndustry(newIndustryName.value); newIndustryName.value=''">Add</button>
+	</div>
 </div>
+
+<!--<industry-members *ngIf="selectedIndustry.name.length > 0" [industry]="selectedIndustry"></industry-members> -->

@@ -1,48 +1,27 @@
-<!-- <h1>{{title}}</h1> -->
-<div class="occupation-content">
-  <h1>{{title}}</h1>
-  <div class="occupation-col">
+<div class="occupation-list-col">
+	<span>Filter by: </span><input [(ngModel)]="filterStr" placeholder="Filter text">
+	<div class="occupations">
+		<ng-container *ngFor="let occupation of occupations">
+			<div *ngIf="filter(occupation.name)" class="occupation" [class.selected]="occupation === selectedOccupation" (click)="onSelect(occupation)">
+				<!--<span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onEdit(occupation)" class="edit">!</span>
+				<span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onDelete(occupation)" class="delete">X</span>-->
+				<span class="view">{{occupation.name}}</span>
+			</div>
+		</ng-container>
+	</div>
 
-<!--
-    <ul class="heroes">
-      <li *ngFor="let occupation of occupations"
-        [class.selected]="occupation === selectedOccupation" class="occupation">
-        <span (click)="onEdit(occupation)" class="edit">!</span>
-        <span (click)="onDelete(occupation)" class="delete">X</span>
-        <span (click)="onSelect(occupation)">{{occupation.name}}</span>
-      </li>
-    </ul>
--->
-    <span>Filter by: </span><input [(ngModel)]="filterStr" placeholder="Filter text">
-    <div class="heroes">
-      <ng-container *ngFor="let occupation of occupations"
-        [class.selected]="occupation === selectedOccupation">
-        <div *ngIf="filter(occupation.name)" class="occupation" (click)="onSelect(occupation)">
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onEdit(occupation)" class="edit">!</span>
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onDelete(occupation)" class="delete">X</span>
-          <span class="view">{{occupation.name}}</span>
-        </div>
-      </ng-container>
-    </div>
-
-    <div *ngIf="editedOccupation.name.length > 0">
-      <br>
-      Edit {{editedOccupation.name}}<br>
-      New Name: <input #editedOccupationName placeholder="{{editedOccupation.name}}">
-      <button (click)="onEditSave(editedOccupationName.value); editedOccupation.name=''">Save</button>
-      <button (click)="editedOccupation.name=''">Cancel</button>
-    </div>
-    <div *ngIf="email == 'phil.berman@mailinator.com'" >
-      <br>
-      <p>Add Occupation:</p>
-      <input #newOccupationName placeholder="New Occupation Name">
-      <button (click)="addOccupation(newOccupationName.value); newOccupationName.value=''">Add Occupation</button>
-    </div>
-  </div>
-  <!--<div class="occupation-col">
-    <p>Right column content</p>
-  </div> -->
-  <div *ngIf="selectedOccupation.name.length > 0">
-    <!--<occupation-members [occupation]="selectedOccupation"></occupation-members>-->
-  </div>
+	<!--<div *ngIf="editedOccupation.name.length > 0">
+		<br>
+		Edit {{editedOccupation.name}}<br>
+		New Name: <input #editedOccupationName placeholder="{{editedOccupation.name}}">
+		<button (click)="onEditSave(editedOccupationName.value); editedOccupation.name=''">Save</button>
+		<button (click)="editedOccupation.name=''">Cancel</button>
+	</div>-->
+	<div >
+		<br>
+		<p>Add Occupation:</p>
+		<input #newOccupationName placeholder="New Occupation Name">
+		<button (click)="addOccupation(newOccupationName.value); newOccupationName.value=''">Add</button>
+	</div>
 </div>
+<!--<occupation-members  *ngIf="selectedOccupation.name.length > 0" [occupation]="selectedOccupation"></occupation-members>-->

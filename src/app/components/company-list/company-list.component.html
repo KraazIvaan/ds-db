@@ -1,48 +1,30 @@
-<!-- <h1>{{title}}</h1> -->
-<div class="company-content">
-  <h1>{{title}}</h1>
-  <div class="company-col">
+<div class="company-list-col">
+	<span>Filter by: </span><input [(ngModel)]="filterStr" placeholder="Filter text">
+	<div class="companies">
+		<ng-container *ngFor="let company of companies">
+			<div *ngIf="filter(company.name)" class="company" [class.selected]="company === selectedCompany" (click)="onSelect(company)">
+				<!--<span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onEdit(company)" class="edit">!</span>
+				<span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onDelete(company)" class="delete">X</span>-->
+				<span class="view">{{company.name}}</span>
+			</div>
+		</ng-container>
+	</div>
 
-<!--
-    <ul class="heroes">
-      <li *ngFor="let company of companies"
-        [class.selected]="company === selectedCompany" class="company">
-        <span (click)="onEdit(company)" class="edit">!</span>
-        <span (click)="onDelete(company)" class="delete">X</span>
-        <span (click)="onSelect(company)">{{company.name}}</span>
-      </li>
-    </ul>
--->
-    <span>Filter by: </span><input [(ngModel)]="filterStr" placeholder="Filter text">
-    <div class="heroes">
-      <ng-container *ngFor="let company of companies"
-        [class.selected]="company === selectedCompany">
-        <div *ngIf="filter(company.name)" class="company" (click)="onSelect(company)">
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onEdit(company)" class="edit">!</span>
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onDelete(company)" class="delete">X</span>
-          <span class="view">{{company.name}}</span>
-        </div>
-      </ng-container>
-    </div>
-
-    <div *ngIf="editedCompany.name.length > 0">
-      <br>
-      Edit {{editedCompany.name}}<br>
-      New Name: <input #editedCompanyName placeholder="{{editedCompany.name}}">
-      <button (click)="onEditSave(editedCompanyName.value); editedCompany.name=''">Save</button>
-      <button (click)="editedCompany.name=''">Cancel</button>
-    </div>
-    <div *ngIf="email == 'phil.berman@mailinator.com'" >
-      <br>
-      <p>Add Company:</p>
-      <input #newCompanyName placeholder="New Company Name">
-      <button (click)="addCompany(newCompanyName.value); newCompanyName.value=''">Add Company</button>
-    </div>
-  </div>
-  <!--<div class="company-col">
-    <p>Right column content</p>
-  </div> -->
-  <div *ngIf="selectedCompany.name.length > 0">
-    <company-members [company]="selectedCompany"></company-members>
-  </div>
+	<!--<div *ngIf="editedCompany.name.length > 0">
+		<br>
+		Edit {{editedCompany.name}}<br>
+		New Name: <input #editedCompanyName placeholder="{{editedCompany.name}}">
+		<button (click)="onEditSave(editedCompanyName.value); editedCompany.name=''">Save</button>
+		<button (click)="editedCompany.name=''">Cancel</button>
+	</div>-->
+	<!--<div *ngIf="email == 'phil.berman@mailinator.com'">-->
+	<div>
+		<br>
+		<p>Add Company:</p>
+		<input #newCompanyName placeholder="New Company Name">
+		<button (click)="addCompany(newCompanyName.value); newCompanyName.value=''">Add</button>
+	</div>
 </div>
+<!--<div *ngIf="selectedCompany.name.length > 0" class="company-col">-->
+	<company-members *ngIf="selectedCompany.name.length > 0" [company]="selectedCompany"></company-members>
+<!--</div>-->

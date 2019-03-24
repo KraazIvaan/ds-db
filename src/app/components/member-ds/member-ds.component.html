@@ -1,179 +1,196 @@
-<div class="member-col">
-  <div class="member-content">
-    <h3>Last edited: {{this.lastEditDate}}</h3>
-    <table>
-      <tr>
-        <td class="label">Name</td><td class="field">{{member.first}} {{member.last}}</td>
-      </tr>
-      <tr>
-        <td class="label">Address</td>
-        <td class="field">{{member.address}}<br>
-          {{member.city}}, {{member.state}} {{member.zip}}
-        </td>
-      </tr>
-      <tr>
-        <td class="label">Home Phone</td><td class="field">{{member.phoneHome}}</td>
-      </tr>
-      <tr>
-        <td class="label">Work Phone</td><td class="field">{{member.phoneWork}}</td>
-      </tr>
-      <tr>
-        <td class="label">Mobile Phone</td><td class="field">{{member.phoneMobile}}</td>
-      </tr>
-      <tr>
-        <td class="label">Email 1</td><td class="field">{{member.email1}}</td>
-      </tr>
-      <tr>
-        <td class="label">Email 2</td><td class="field">{{member.email2}}</td>
-      </tr>
-      <tr *ngIf="hasPrefComm()">
-        <td class="label">Preferred Communication Type:</td>
-        <td class="field">{{member.commPref}}</td>
-      </tr>
-      <tr>
-        <td class="label">LinkedIn</td><td class="field"><a href="{{member.linkedin}}" target="_blank">{{member.linkedin}}</a></td>
-      </tr>
-      <tr>
-        <td class="label">Date joined group</td><td class="field">{{joinDate}}</td>
-      </tr>
-      <tr>
-        <td class="label">Currently employed</td>
-        <td class="field" *ngIf="member.currentlyEmployed==true">Yes</td>
-        <td class="field" *ngIf="member.currentlyEmployed==false">No</td>
-      </tr>
-      <tr *ngIf="member.currentlyEmployed==true">
-        <td class="label">Current employment</td> 
-        <td class="field">{{this.employmentFrom}} to present</td>
-      </tr>
-      <tr *ngIf="member.currentlyEmployed==false">
-        <td class="label">Last employment</td>
-        <td class="field">{{this.employmentFrom}} to {{this.employmentTo}}</td>
-      </tr>
-      <tr>
-        <td class="label">Company:</td>
-        <td class="clickable field" (click)="onSelectComp(employmentCompany)">{{employmentCompany.name}}</td>
-      </tr>
+<div class="member-ds">
+	<!--<h3>Last edited: {{this.lastEditDate}}</h3>-->
+	<table>
+		<tr>
+			<td class="label">Name</td>
+			<td class="field">{{member.first}} {{member.last}}</td>
+		</tr>
+		<tr>
+			<td class="label">Address</td>
+			<td class="field">{{member.address}}<br>
+				{{member.city}}, {{member.state}} {{member.zip}}
+			</td>
+		</tr>
+		<tr>
+			<td class="label">Home Phone</td>
+			<td class="field">{{member.phoneHome}}</td>
+		</tr>
+		<tr>
+			<td class="label">Work Phone</td>
+			<td class="field">{{member.phoneWork}}</td>
+		</tr>
+		<tr>
+			<td class="label">Mobile Phone</td>
+			<td class="field">{{member.phoneMobile}}</td>
+		</tr>
+		<tr>
+			<td class="label">Email 1</td>
+			<td class="field">{{member.email1}}</td>
+		</tr>
+		<tr>
+			<td class="label">Email 2</td>
+			<td class="field">{{member.email2}}</td>
+		</tr>
+		<tr *ngIf="hasPrefComm()">
+			<td class="label">Preferred Communication Type:</td>
+			<td class="field">{{member.commPref}}</td>
+		</tr>
+		<tr>
+			<td class="label">LinkedIn</td>
+			<td class="field"><a href="{{member.linkedin}}" target="_blank">{{member.linkedin}}</a></td>
+		</tr>
+		<tr>
+			<td class="label">Date joined group</td>
+			<td class="field">{{joinDate}}</td>
+		</tr>
+		<tr>
+			<td class="label">Currently employed</td>
+			<td class="field" *ngIf="member.currentlyEmployed==true">Yes</td>
+			<td class="field" *ngIf="member.currentlyEmployed==false">No</td>
+		</tr>
+		<tr *ngIf="member.currentlyEmployed==true">
+			<td class="label">Current employment</td>
+			<td class="field">{{this.employmentFrom}} to present</td>
+		</tr>
+		<tr *ngIf="member.currentlyEmployed==false">
+			<td class="label">Last employment</td>
+			<td class="field">{{this.employmentFrom}} to {{this.employmentTo}}</td>
+		</tr>
+		<tr>
+			<td class="label">Company:</td>
+			<td *ngIf="hasEmpComm()" class="clickable field" (click)="onSelectComp(employmentCompany)">{{employmentCompany.name}}</td>
+			<td *ngIf="hasEmpComm() == false" >N/A</td>
+		</tr>
+		<tr>
+			<td class="label">What I do:</td>
+			<td class="field">{{member.employmentDescription}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">What I do:</td>
-        <td class="field">{{member.employmentDescription}}</td>
-      </tr>
+		<tr>
+			<td class="label">Groups / Teams I support:</td>
+			<td class="field">{{member.supported}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">Groups / Teams I support:</td>
-        <td class="field">{{member.supported}}</td>
-      </tr>
+		<tr>
+			<td class="label">Prior experience:</td>
+			<td class="field">{{member.priorExp}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">Prior experience:</td>
-        <td class="field">{{member.priorExp}}</td>
-      </tr>
+		<tr>
+			<td class="label">Past Employers:</td>
+			<td *ngIf="hasPastEmp()" class="field">
+				<ul>
+					<li *ngFor="let company of pastEmployers" class="clickable" (click)="onSelectComp(company)">{{company.name}}
+					</li>
+				</ul>
+			</td>
+			<td *ngIf="hasPastEmp() == false" class="field">
+				N/A
+			</td>
+		</tr>
 
-      <tr>
-        <td class="label">Past Employers:</td>
-        <td class="field">
-          <ul>
-            <li *ngFor="let company of pastEmployers" class="clickable" (click)="onSelectComp(company)">{{company.name}}
-            </li>
-          </ul>
-        </td>
-      </tr>
+		<tr>
+			<td class="label">Career stage:</td>
+			<td class="field">{{member.careerStage}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">Career stage:</td>
-        <td class="field">{{member.careerStage}}</td>
-      </tr>
+		<tr>
+			<td class="label">Special skills:</td>
+			<td class="field">{{member.skills}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">Special skills:</td>
-        <td class="field">{{member.skills}}</td>
-      </tr>
+		<tr>
+			<td class="label">Why I participate in this networking group:</td>
+			<td class="field">{{member.whyJoined}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">Why I participate in this networking group:</td>
-        <td class="field">{{member.whyJoined}}</td>
-      </tr>
+		<tr>
+			<td class="label">Interests:</td>
+			<td class="field">{{member.interests}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">Interests:</td>
-        <td class="field">{{member.interests}}</td>
-      </tr>
+		<tr>
+			<td class="label">Needs:</td>
+			<td class="field">{{member.needs}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">Needs:</td>
-        <td class="field">{{member.needs}}</td>
-      </tr>
+		<tr>
+			<td class="label">How the group can help:</td>
+			<td class="field">{{member.canHelp}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">How the group can help:</td>
-        <td class="field">{{member.canHelp}}</td>
-      </tr>
+		<tr>
+			<td class="label">What I can do for others</td>
+			<td class="field">{{member.canDo}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">What I can do for others</td>
-        <td class="field">{{member.canDo}}</td>
-      </tr>
+		<tr>
+			<td class="label">I have contacts in these companies/industries</td>
+			<td class="field">
+				<ul>
+					<li *ngFor="let company of contactsInComps" class="clickable" (click)="onSelectComp(company)">{{company.name}}
+					</li>
+				</ul>
+				<ul>
+					<li *ngFor="let industry of contactsInInds">{{industry.name}}</li>
+				</ul>
+			</td>
+		</tr>
 
-      <tr>
-        <td class="label">I have contacts in these companies/industries</td>
-        <td class="field">
-          <ul>
-            <li *ngFor="let company of contactsInComps" class="clickable" (click)="onSelectComp(company)">{{company.name}}</li>
-          </ul>
-          <ul>
-            <li *ngFor="let industry of contactsInInds">{{industry.name}}</li>
-          </ul>
-        </td>
-      </tr>
+		<tr>
+			<td class="label">I belong to these professional organizations / associations</td>
+			<td class="field">
+				<ul>
+					<li *ngFor="let organization of memberOfOrgs" class="clickable" (click)="onSelectOrg(organization)">
+						{{organization.name}} <span *ngIf="organization.abbreviation">({{organization.abbreviation}})</span></li>
+				</ul>
+			</td>
+		</tr>
 
-      <tr>
-        <td class="label">I belong to these professional organizations / associations</td>
-        <td class="field">
-          <ul>
-            <li *ngFor="let organization of memberOfOrgs" class="clickable"(click)="onSelectOrg(organization)">{{organization.name}} <span *ngIf="organization.abbreviation">({{organization.abbreviation}})</span></li>
-          </ul>
-        </td>
-      </tr>
+		<tr>
+			<td class="label">Occupations of interest:</td>
+			<td class="field">
+				<ul>
+					<li *ngFor="let occupation of targetOccs">{{occupation.name}}</li>
+				</ul>
+			</td>
+		</tr>
 
-      <tr>
-        <td class="label">Occupations of interest:</td>
-        <td class="field">
-          <ul>
-            <li *ngFor="let occupation of targetOccs">{{occupation.name}}</li>
-          </ul>
-        </td>
-      </tr>
+		<tr>
+			<td class="label">Target industry</td>
+			<td class="field">{{targetIndustry.name}}</td>
+		</tr>
 
-      <tr>
-        <td class="label">Target industry</td>
-        <td class="field">{{targetIndustry.name}}</td>
-      </tr>
+		<tr>
+			<td class="label">Target companies</td>
+			<td class="field">
+				<ul>
+					<li *ngFor="let target of targetComps" class="clickable" (click)="onSelectComp(target)">{{target.name}}</li>
+				</ul>
+			</td>
+		</tr>
 
-      <tr>
-        <td class="label">Target companies</td>
-        <td class="field">
-          <ul>
-            <li *ngFor="let target of targetComps" class="clickable" (click)="onSelectComp(target)">{{target.name}}</li>
-          </ul>
-        </td>
-      </tr>
+		<tr>
+			<td class="label">Plan A</td>
+			<td class="field">{{member.planA}}</td>
+		</tr>
+		<tr>
+			<td class="label">Plan B</td>
+			<td class="field">{{member.planB}}</td>
+		</tr>
+		<tr>
+			<td class="label">Plan C</td>
+			<td class="field">{{member.planC}}</td>
+		</tr>
+	</table>
+</div>
+<!--<ds-info-col></ds-info-col>-->
 
-      <tr>
-        <td class="label">Plan A</td><td class="field">{{member.planA}}</td>
-      </tr>
-      <tr>
-        <td class="label">Plan B</td><td class="field">{{member.planB}}</td>
-      </tr>
-      <tr>
-        <td class="label">Plan C</td><td class="field">{{member.planC}}</td>
-      </tr>
-
-    </table>
-  </div>
-  <div class="comp-info" *ngIf="selectedCompany.name != 'N/A'">
-    <company-members [company]="selectedCompany"></company-members>
-  </div>
-  <div class="org-info" *ngIf="selectedOrganization.name != 'N/A'">
-    <organization-members [organization]="selectedOrganization"></organization-members>
-  </div>
+<div  *ngIf="selectedCompany.name != 'N/A' || selectedOrganization.name != 'N/A'" class="info-col">
+	<div class="comp-info" *ngIf="selectedCompany.name != 'N/A'">
+		<company-members [company]="selectedCompany"></company-members>
+	</div>
+	<div class="org-info" *ngIf="selectedOrganization.name != 'N/A'">
+		<organization-members [organization]="selectedOrganization"></organization-members>
+	</div>
 </div>

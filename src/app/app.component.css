@@ -1,5 +1,19 @@
 html, body {
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.header {
+  width: calc(100% - 10px);
+  height: 50px;
+  margin: 0px;
+	padding: 5px;
+}
+
+.content {
+  width: calc(100% - 10px);
+  height: calc(100% - 70px);
+  margin: 0px;
+	padding: 5px;
 }

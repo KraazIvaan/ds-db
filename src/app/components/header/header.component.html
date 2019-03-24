@@ -1,11 +1,8 @@
 <div class="header">
-	<!-- If the user is logged in, display navigation -->
-	<div *ngIf="isLoggedIn">
+	<div *ngIf="isLoggedIn"><!-- If the user is logged in, display navigation -->
 		<nav-bar></nav-bar>
 	</div>
-
-	<!-- If the user is not logged in, display login form-->
-	<div *ngIf="!isLoggedIn">
+	<div *ngIf="!isLoggedIn"><!-- If the user is not logged in, display login form-->
 		<app-login></app-login>
 	</div>
 </div>

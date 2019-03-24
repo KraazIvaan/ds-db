@@ -1,31 +1,238 @@
-<!--
-<h1>{{title}}</h1>
-Sort by: <button (click)="first()">first name</button>
-<button (click)="last()">last name</button>
-<input [(ngModel)]="filterStr" placeholder="Filter by">
-<!-- <ul class="heroes">
-<div class="heroes">
-  <ng-container *ngFor="let member of members"
-    [class.selected]="member === selectedMember">
-    <div *ngIf="sortByLastName==false && filter(member.first, member.last)" class="member">
-      <!-- <span class="badge">{{member.id}}</span>
-      <span class="badge">Edit</span>
-      <span (click)="onSelect(member)">{{member.first}} {{member.last}}</span>
-    </div>
-    <div *ngIf="sortByLastName==true && filter(member.first, member.last)" class="member">
-      <!-- <span class="badge">{{member.id}}</span>
-      <span class="badge">Edit</span>
-      <span (click)="onSelect(member)">{{member.last}}, {{member.first}}</span>
-    </div>
-  </ng-container>
-</div>
-<!-- </ul>
-<div *ngIf="selectedMember">
-  <h2>
-    {{selectedMember.first | uppercase }} is the selected Member
-  </h2>
-  <button (click)="gotoDetail()">View Datasheet</button>
-</div>
--->
+<div class="member-col">
+	<p class="page-title">{{title}}</p>
+	<div class="accordion">
+		<div class="accordion-section">
+			<div class="accordion-section-head" (click)="toggle(1)">Contact Information</div>
+			<div class="accordion-section-body" id="body-1">
+				<table>
+					<tr>
+						<td class="label">First Name: </td>
+						<td><input [(ngModel)]="member.first"></td>
+					</tr>
+					<tr>
+						<td class="label">Last Name: </td>
+						<td><input [(ngModel)]="member.last"></td>
+					</tr>
+					<tr>
+						<td class="label">Street Address: </td>
+						<td><input [(ngModel)]="member.address"></td>
+					</tr>
+					<tr>
+						<td class="label">City: </td>
+						<td><input [(ngModel)]="member.city"></td>
+					</tr>
+					<tr>
+						<td class="label">State: </td>
+						<td><input [(ngModel)]="member.state"></td>
+					</tr>
+					<tr>
+						<td class="label">Zip Code: </td>
+						<td><input [(ngModel)]="member.zip"></td>
+					</tr>
+					<tr>
+						<td class="label">Home Phone #: </td>
+						<td><input [(ngModel)]="member.phoneHome"></td>
+					</tr>
+					<tr>
+						<td class="label">Mobile Phone #: </td>
+						<td><input [(ngModel)]="member.phoneMobile"></td>
+					</tr>
+					<tr>
+						<td class="label">Work Phone #: </td>
+						<td><input [(ngModel)]="member.phoneWork"></td>
+					</tr>
+					<tr>
+						<td class="label">Email 1: </td>
+						<td><input [(ngModel)]="member.email1"></td>
+					</tr>
+					<tr>
+						<td class="label">Email 2: </td>
+						<td><input [(ngModel)]="member.email2"></td>
+					</tr>
+					<tr>
+						<td class="label">LinkedIn: </td>
+						<td><input [(ngModel)]="member.linkedin"></td>
+					</tr>
 
-<h1>Edit page goes here</h1>
+					<tr>
+						<td class="label">Preferred Communication Method(s): </td>
+						<td>
+							<input type="radio" name="commPref" [(ngModel)]="member.commPref" value="'email'">Email
+							<input type="radio" name="commPref" [(ngModel)]="member.commPref" value="'text'">Text
+							<input type="radio" name="commPref" [(ngModel)]="member.commPref" value="'phone'">Phone
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Date joined: </td>
+						<td>
+							<input [(ngModel)]="joinDateDay" size="2" maxlength="2" placeholder="DD">/
+							<input [(ngModel)]="joinDateMonth" size="2" maxlength="2" placeholder="MM">/
+							<input [(ngModel)]="joinDateYear" size="4" maxlength="4" placeholder="YYYY">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="accordion-section">
+			<div class="accordion-section-head" (click)="toggle(2)">Current / Most Recent Employment</div>
+			<div class="accordion-section-body" id="body-2">
+				<div>
+					<p>Current or last employment:</p>
+					<select [(ngModel)]="employmentCompany" name="employmentCompany" size="5">
+						<option *ngFor="let company of companies" value="{{company._id}}">{{company.name}}</option>
+					</select>
+				</div>
+				<table>
+					<tr>
+						<td class="label">Currently Employed: </td>
+						<td>
+							<input type="radio" name="currentlyEmployed" [(ngModel)]="currentlyEmployed" [value]="true" checked />Yes
+							<input type="radio" name="currentlyEmployed" [(ngModel)]="currentlyEmployed" [value]="false" />No
+						</td>
+					</tr>
+
+					<tr>
+						<td class="label">From: </td>
+						<td>
+							<input [(ngModel)]="employmentFromDay" size="2" maxlength="2" placeholder="DD">/
+							<input [(ngModel)]="employmentFromMonth" size="2" maxlength="2" placeholder="MM">/
+							<input [(ngModel)]="employmentFromYear" size="4" maxlength="4" placeholder="YYYY">
+						</td>
+					</tr>
+
+					<tr>
+						<td class="label">To: </td>
+						<td *ngIf="currentlyEmployed==true">Present</td>
+						<td *ngIf="currentlyEmployed==false">
+							<input [(ngModel)]="employmentToDay" size="2" maxlength="2" placeholder="DD">/
+							<input [(ngModel)]="employmentToMonth" size="2" maxlength="2" placeholder="MM">/
+							<input [(ngModel)]="employmentToYear" size="4" maxlength="4" placeholder="YYYY">
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Explain what you do using verbs/activities to describe your work:</td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.employmentDescription"></textarea></td>
+					</tr>
+					<tr>
+						<td class="label">What groups or teams are supported by your work group?</td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.supported"></textarea></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="accordion-section">
+			<div class="accordion-section-head" (click)="toggle(3)">Skills & History</div>
+			<div class="accordion-section-body" id="body-3">
+				<table>
+					<tr>
+						<td class="label">Briefly list or describe/summarize your prior experience: </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.priorExp"></textarea></td>
+					</tr>
+					<tr>
+						<td class="label">Names of your past employers:</td>
+						<td>
+							<select [(ngModel)]="pastEmployers" name="pastEmployers" size="5" multiple>
+								<option *ngFor="let company of companies" value="{{company._id}}">{{company.name}}</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Career Stage:</td>
+						<td>
+							<input type="radio" name="careerStage" [(ngModel)]="careerStage" [value]="'early'" checked />Early
+							<input type="radio" name="careerStage" [(ngModel)]="careerStage" [value]="'mid'" />Mid
+							<input type="radio" name="careerStage" [(ngModel)]="careerStage" [value]="'advanced'" />Advanced
+							<input type="radio" name="careerStage" [(ngModel)]="careerStage" [value]="'late'" />Late
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Special skills (e.g.: advanced software, coding, lean/agile processes): </td>
+						<td><textarea rows="2" cols="60" [(ngModel)]="member.skills"></textarea></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="accordion-section">
+			<div class="accordion-section-head" (click)="toggle(4)">Group Interaction</div>
+			<div class="accordion-section-body" id="body-4">
+				<div>
+					<p>I have contacts in these industries:</p>
+					<select [(ngModel)]="contactsInInds" name="contactsInInds" size="5" multiple>
+						<option *ngFor="let industry of industries" value="{{industry._id}}">{{industry.name}}</option>
+					</select>
+				</div>
+				<div>
+					<p>I have contacts in these companies:</p>
+					<select [(ngModel)]="contactsInComps" name="contactsInComps" size="5" multiple>
+						<option *ngFor="let company of companies" value="{{company._id}}">{{company.name}}</option>
+					</select>
+				</div>
+				<div>
+					<p>I am a member of these organizations:</p>
+					<select [(ngModel)]="memberOfOrgs" name="memberOfOrgs" size="5" multiple>
+						<option *ngFor="let organization of organizations" value="{{organization._id}}">
+							{{organization.abbreviation}}: {{organization.name}}</option>
+					</select>
+				</div>
+				<table>
+					<tr>
+						<td class="label">My story (Why I participate in this networking group): </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.whyJoined"></textarea></td>
+					</tr>
+					<tr>
+						<td class="label">Interests: </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.interests"></textarea></td>
+					</tr>
+					<tr>
+						<td class="label">Needs: </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.needs"></textarea></td>
+					</tr>
+					<tr>
+						<td class="label">How the networking group can help: </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.canHelp"></textarea></td>
+					</tr>
+					<tr>
+						<td class="label">What I can do for others: </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.canDo"></textarea></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="accordion-section">
+			<div class="accordion-section-head" (click)="toggle(5)">Goals & Targets</div>
+			<div class="accordion-section-body" id="body-5">
+				<div>
+					<p>Occupations of interest (job titles):</p>
+					<select [(ngModel)]="targetOccs" name="targetOccs" size="5" multiple>
+						<option *ngFor="let occupation of occupations" value="{{occupation._id}}">{{occupation.name}}</option>
+					</select>
+
+					<p>My target industry:</p>
+					<select [(ngModel)]="targetIndustry" name="targetIndustry" size="5">
+						<option *ngFor="let industry of industries" value="{{industry._id}}">{{industry.name}}</option>
+					</select>
+
+					<p>My target companies:</p>
+					<select [(ngModel)]="targetComps" name="targetComps" size="5" multiple>
+						<option *ngFor="let company of companies" value="{{company._id}}">{{company.name}}</option>
+					</select>
+				</div>
+				<table>
+					<tr>
+						<td class="label">Plan A: </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.planA"></textarea></td>
+					</tr>
+					<tr>
+						<td class="label">Plan B: </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.planB"></textarea></td>
+					</tr>
+					<tr>
+						<td class="label">Plan C: </td>
+						<td><textarea rows="5" cols="60" [(ngModel)]="member.planC"></textarea></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<button (click)="submit()">Update Member</button>
+</div>

@@ -1,49 +1,22 @@
-<!-- <h1>{{title}}</h1>-->
-<div class="member-list-container">
-<div class="member-list-content">
-  <h1>{{title}}</h1>
-  <div class="member-list-col">
-    Sort by: <button (click)="first()">first name</button>
-    <button (click)="last()">last name</button>
-    <br>
-    <span>Filter by: </span><input [(ngModel)]="filterStr" placeholder="Filter text">
-    <!-- <ul class="heroes"> -->
-    <div class="heroes">
-      <ng-container *ngFor="let member of members"
-        [class.selected]="member === selectedMember">
-        <div *ngIf="sortByLastName==false && filter(member.first, member.last)" class="member" (click)="onViewMemberDS(member)" >
-          <!-- <input name="selectedMembers" value="{{member._id}}" type="checkbox">-->
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onEdit(member)" class="edit">!</span>
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onDelete(company)" class="delete">X</span>
-          <span class="view">{{member.first}} {{member.last}}</span>
-        </div>
-        <div *ngIf="sortByLastName==true && filter(member.first, member.last)" class="member" (click)="onViewMemberDS(member)" >
-          <!-- <input name="selectedMembers" value="{{member._id}}" type="checkbox">-->
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onEdit(member)" class="edit">!</span>
-          <span *ngIf="email == 'phil.berman@mailinator.com'" (click)="onDelete(company)" class="delete">X</span>
-          <span class="view">{{member.last}}, {{member.first}}</span>
-        </div>
-      </ng-container>
-    </div>
-    <!--
-    <div>
-      <button (click)="viewSelectedMembers()">View Selected Members</button>
-    </div>
-    -->
-    <div>
-      <button *ngIf="email == 'phil.berman@mailinator.com'" (click)="addMember()">Add Member</button>
-    </div>
-    <!--
-    <div *ngIf="selectedMember">
-      <h2>
-        {{selectedMember.first | uppercase }} is the selected Member
-      </h2>
-      <button (click)="gotoDetail()">View Datasheet</button>
-    </div>
-    -->
-  </div>
-  <div *ngIf="selectedMember != null" class="ds-container">
-    <member-ds [member]="selectedMember"></member-ds>
-  </div>
+<div class="member-list-col">
+	Sort by: <button (click)="first()">first name</button>
+	<button (click)="last()">last name</button>
+	<br>
+	<span>Filter by: </span><input [(ngModel)]="filterStr" placeholder="Filter text">
+	<div class="members">
+		<ng-container *ngFor="let member of members">
+			<div *ngIf="filter(member.first, member.last)" class="member" [class.selected]="member === selectedMember" (click)="onViewMemberDS(member)">
+				<span *ngIf="email == member.email1" (click)="onEdit(member)" class="edit">!</span>
+				<span *ngIf="sortByLastName==false" class="view">{{member.first}} {{member.last}}</span>
+				<span *ngIf="sortByLastName==true" class="view">{{member.last}}, {{member.first}}</span>
+			</div>
+		</ng-container>
+	</div>
+	<div>
+		<button (click)="addMember()">Add Member</button>
+	</div>
 </div>
-</div>
+
+<!--<div *ngIf="selectedMember != null" class="ds-col">-->
+	<member-ds *ngIf="selectedMember != null" [member]="selectedMember"></member-ds>
+<!--</div>-->

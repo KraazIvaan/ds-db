@@ -26,7 +26,6 @@ export class MemberListComponent {
   ) { }
 
   getMembers(): void {
-    console.log('in getMembers');
     this.memberService.getMembers().subscribe(members => { this.members = members; this.first(); });
   }
 
@@ -66,11 +65,6 @@ export class MemberListComponent {
       this.filterStr = this.filterStr.toLowerCase();
       var pattStr = "^.*" + this.filterStr + ".*$";
       var pattern = new RegExp(pattStr);
-      /*console.log("first: " + f);
-      console.log("last: " + l);
-      console.log("pattStr: " + pattStr);
-      console.log(pattern.test(f));
-      console.log(pattern.test(l));*/
       return (pattern.test(f) || pattern.test(l));
     }
   }
@@ -81,21 +75,15 @@ export class MemberListComponent {
       this.email = user.email;
     }
     this.getMembers();
-    //this.first();
   }
 
   onViewMemberDS(member: Member): void {
     this.selectedMember = member;
-    //this.gotoDetail();
-    //this.router.navigate(['/member', this.selectedMember._id]);
-    //gotoDetail();
   }
   
   onEdit(member: Member): void {
     this.selectedMember = member;
-    //this.gotoDetail();
     this.router.navigate(['/member-edit', this.selectedMember._id]);
-    //gotoDetail();
   }
 
   onDelete(member: Member): void {
@@ -103,14 +91,6 @@ export class MemberListComponent {
     //this.companyService.deleteCompany(company)
     //  .subscribe();
   }
-  
-  viewSelectedMembers(): void {
-  }
-  
-  //gotoDetail(): void {
-    //this.selectedMember = member;
-    //this.router.navigate(['/detail', this.selectedMember.id]);
-  //}
   
   addMember(): void {
     this.router.navigate(['/add-member']);

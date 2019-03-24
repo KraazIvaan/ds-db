@@ -80,29 +80,57 @@ export class AddMemberComponent implements OnInit {
           section.style.display = "none";
       }
     }
+	}
+	
+	sortFunc(a,b): number {
+    if (a.name < b.name)
+      return -1;
+    if (a.name > b.name)
+      return 1;
+    return 0;
+  }
+  
+  sortComps(): void {
+    this.companies.sort(this.sortFunc);
+	}
+	
+	sortOrgs(): void {
+    this.organizations.sort(this.sortFunc);
+	}
+	
+	sortInds(): void {
+    this.industries.sort(this.sortFunc);
+	}
+	
+	sortOccs(): void {
+    this.occupations.sort(this.sortFunc);
   }
 
   getCompanies(): void {
     this.companyService.getCompanies().subscribe(companies => {
-      this.companies = companies;
+			this.companies = companies;
+			this.sortComps();
     });
   }
 
   getOrganizations(): void {
     this.organizationService.getOrganizations().subscribe(organizations => {
-      this.organizations = organizations;
+			this.organizations = organizations;
+			this.sortOrgs();
     });
   }
 
   getIndustries(): void {
     this.industryService.getIndustries().subscribe(industries => {
-      this.industries = industries;
+			this.industries = industries;
+			this.sortInds();
     });
   }
 
   getOccupations(): void {
     this.occupationService.getOccupations().subscribe(occupations => {
-      this.occupations = occupations;
+			this.occupations = occupations;
+			this.sortOccs();
     });
   }
 
@@ -110,7 +138,7 @@ export class AddMemberComponent implements OnInit {
     this.getCompanies();
     this.getOrganizations();
     this.getIndustries();
-    this.getOccupations();
+		this.getOccupations();
   }
 
   submit(): void {
@@ -141,7 +169,10 @@ export class AddMemberComponent implements OnInit {
     this.member.memberOfOrgs = this.memberOfOrgs;
     this.member.pastEmployers = this.pastEmployers;
     this.member.careerStage = this.careerStage;
-    this.memberService.addMember(this.member).subscribe();
-    //console.log('submit clicked');
+    this.memberService.addMember(this.member).subscribe((data) => {
+			this.router.navigate(['/members']);
+		}, (error) => {
+			console.log("err", error);
+		});
   }
 }

@@ -70,6 +70,13 @@ export class MemberService {
       tap((member:Member) => console.log(`added member w/ id=${member._id}`)),
       catchError(this.handleError<Member>('addMember'))
     );
+	}
+	
+  editMember(member: Member): Observable<Member> {
+    return this.http.put<Member>(this.editMemberUrl,member,httpOptions ).pipe(
+      tap((member:Member) => console.log(`edited member w/ id=${member._id}`)),
+      catchError(this.handleError<Member>('editMember'))
+    );
   }
 
 /**
