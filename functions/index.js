@@ -1,25 +1,57 @@
 'use strict';
 
-const functions = require('firebase-functions');
-const cors = require('cors');
-const mongodb = require('mongodb');
+var functions = require('firebase-functions');
+
+var mongodb = require('mongodb');
 var ObjectID = mongodb.ObjectID;
-const MongoClient = require('mongodb').MongoClient;
-const express = require('express');
-const database = require('./config/db');
+var MongoClient = require('mongodb').MongoClient;
+var database = require('./config/db');
+
+var express = require('express');
+var cors = require('cors');
 
 //const bodyParser  = require('body-parser');
-const app = express();
-app.use(cors({ origin: true }));
+var app = express();
+// https://rm-ds-db.firebaseapp.com
+//app.options('/edit-member/', cors());
+
+//app.use(cors({ origin: "https://rm-ds-db.firebaseapp.com", preflightContinue: true }));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
+
+app.options('*', cors({ origin: "https://rm-ds-db.firebaseapp.com", preflightContinue: true }));
+//app.use(cors());
+/*
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  next();
+});
+*/
+
 // I don't know if any subdirectories of the 'functions' directory get deployed to Firebase.  This
 // config file just contains a connection string, which I can move into this file, unless that is
 // somehow insecure.
 //const database = require('./config/db');
 // [END additionalimports]
 
+app.get('/zarf/', (req, res) => {
+	res.status(200).send("items");
+});
+
 // BEGIN member functions
 app.get('/members/', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		db.collection('members').find({}).toArray((err, items) => {
 			client.close();
@@ -34,7 +66,7 @@ app.get('/members/', (req, res) => {
 });
 
 app.get('/member/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
@@ -51,7 +83,7 @@ app.get('/member/:id', (req, res) => {
 });
 
 app.get('/members-company-employed/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const id = req.params.id;
@@ -69,7 +101,7 @@ app.get('/members-company-employed/:id', (req, res) => {
 });
 
 app.get('/members-company-contacts/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const id = req.params.id;
@@ -87,7 +119,7 @@ app.get('/members-company-contacts/:id', (req, res) => {
 });
 
 app.get('/members-company-targets/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const id = req.params.id;
@@ -105,7 +137,7 @@ app.get('/members-company-targets/:id', (req, res) => {
 });
 
 app.get('/members-organization/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const id = req.params.id;
@@ -152,7 +184,7 @@ app.get('/members-meeting/:id', (req, res) => {
 }); // closes app.get call and callback
 
 app.post('/add-member', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		console.log('req.body: ', req.body);
 		console.log('req.method: ', req.method);
@@ -170,20 +202,23 @@ app.post('/add-member', (req, res) => {
 
 app.put('/edit-member/', (req, res) => {
 	console.log('calling edit member');
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		console.log('inside connect in edit member');
-		const filter = { '_id': new ObjectID(req.body.id) };
-		var db = client.db('dsdb');
-		console.log('req.body: ', req.body);
+		console.log('req.body before: ', req.body);
+		const id = new ObjectID(req.body.id);
+		const filter = { '_id':  id };
+		delete req.body._id;
+		console.log('req.body after: ', req.body);
 		console.log('req.method: ', req.method);
-		//const comp = { name: req.body.name };
-		db.collection('members').replaceOne(
-			filter, req.body, (err, result) => {
+		var db = client.db('dsdb');
+		//db.collection('members').replaceOne(filter, req.body, (err, result) => {
+		db.collection('members').findOneAndReplace(filter, req.body, (err, result) => {
 			if (err) {
 				res.send({ 'error': 'An error has occurred.' });
 			}
 			else {
-				res.send(result.ops[0]);
+				//res.send(result.ops[0]);
+				res.status(200).send('edit member success');
 			}
 		});
 	});
@@ -192,7 +227,7 @@ app.put('/edit-member/', (req, res) => {
 
 // BEGIN company functions
 app.get('/companies/', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		db.collection('companies').find({}).toArray((err, items) => {
 			client.close();
@@ -208,7 +243,7 @@ app.get('/companies/', (req, res) => {
 
 
 app.get('/companies/:ids', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const idsStr = req.params.ids;
@@ -233,7 +268,7 @@ app.get('/companies/:ids', (req, res) => {
 });
 
 app.get('/company/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
@@ -250,7 +285,7 @@ app.get('/company/:id', (req, res) => {
 });
 
 app.post('/add-company', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		db.collection('companies').insert(req.body, (err, result) => {
 			if (err) {
@@ -267,7 +302,7 @@ app.post('/add-company', (req, res) => {
 
 // BEGIN organization functions
 app.get('/organizations', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		db.collection('organizations').find({}).toArray((err, items) => {
@@ -283,7 +318,7 @@ app.get('/organizations', (req, res) => {
 });
 
 app.get('/organizations/:ids', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const idsStr = req.params.ids;
@@ -308,7 +343,7 @@ app.get('/organizations/:ids', (req, res) => {
 });
 
 app.get('/organization/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const id = req.params.id;
@@ -326,7 +361,7 @@ app.get('/organization/:id', (req, res) => {
 });
 
 app.get('/organization-members/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		const id = req.params.id;
 		const details = { 'organizations': id };
@@ -344,7 +379,7 @@ app.get('/organization-members/:id', (req, res) => {
 });
 
 app.post('/add-organization', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		const org = { name: req.body.name, abbreviation: req.body.abbreviation };
 		db.collection('organizations').insert(org, (err, result) => {
@@ -362,7 +397,7 @@ app.post('/add-organization', (req, res) => {
 
 // BEGIN industry functions
 app.get('/industries/', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		db.collection('industries').find({}).toArray((err, items) => {
 			client.close();
@@ -378,7 +413,7 @@ app.get('/industries/', (req, res) => {
 
 
 app.get('/industries/:ids', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const idsStr = req.params.ids;
@@ -403,7 +438,7 @@ app.get('/industries/:ids', (req, res) => {
 });
 
 app.get('/industry/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
@@ -420,7 +455,7 @@ app.get('/industry/:id', (req, res) => {
 });
 
 app.post('/add-industry', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		db.collection('industries').insert(req.body, (err, result) => {
 			if (err) {
@@ -436,7 +471,7 @@ app.post('/add-industry', (req, res) => {
 
 // BEGIN occupation functions
 app.get('/occupations/', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		db.collection('occupations').find({}).toArray((err, items) => {
 			client.close();
@@ -452,7 +487,7 @@ app.get('/occupations/', (req, res) => {
 
 
 app.get('/occupations/:ids', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 
 		const idsStr = req.params.ids;
@@ -477,7 +512,7 @@ app.get('/occupations/:ids', (req, res) => {
 });
 
 app.get('/occupation/:id', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
@@ -494,7 +529,7 @@ app.get('/occupation/:id', (req, res) => {
 });
 
 app.post('/add-occupation', (req, res) => {
-	MongoClient.connect(database.url, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		var db = client.db('dsdb');
 		db.collection('occupations').insert(req.body, (err, result) => {
 			if (err) {

@@ -9,6 +9,10 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
+		],
+		"rewrites": [ {
+			"source": "/edit-member/",
+			"function": "edit-member"
+		} ]
   }
 }
