@@ -1,0 +1,19 @@
+.option {
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle;
+  text-decoration: none;
+	margin-right: 5px;
+	padding: 0px 5px 0px 5px;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-family: "Arial", sans;  
+}
+
+.option:hover {
+  color: #039be5;
+	background-color: #CFD8DC;
+	cursor: pointer;
+}

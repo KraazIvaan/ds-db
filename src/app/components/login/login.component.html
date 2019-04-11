@@ -1,21 +1,27 @@
 <div>
 	<form name="userform" method="post" #formCtrl="ngForm">
-		<div class="form-group">
-			<label for="exampleInputEmail1">Email address: </label>
-			<input type="email" class="form-control" [(ngModel)]="user.email" id="email" name="email" placeholder="Email"
-				required>
-		</div>
-		<div class="form-group">
-			<label for="exampleInputPassword1">Password: </label>
-			<input type="password" class="form-control" [(ngModel)]="user.password" id="password" name="password"
-				placeholder="Password" required>
-		</div>
-
-		<div class="form-group">
-			<button type="buton" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="signInWithEmail()"
-				[disabled]="formCtrl.form.invalid">
-				Login
-			</button>
-		</div>
+		<table>
+			<tr>
+				<td class="label">
+					<label for="exampleInputEmail1">Email address: </label>
+				</td>
+				<td class="field">
+					<input type="email" class="form-control" [(ngModel)]="user.email" id="email" name="email" placeholder="Email" required>
+				</td>
+				<td>
+					<button type="buton" (click)="signInWithEmail()" [disabled]="formCtrl.form.invalid">Login</button>&nbsp;<a routerLink="/password-reset" routerLinkActive="active">New user / Forgot password?</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label for="exampleInputPassword1">Password:</label>
+				</td>
+				<td class="field"><input type="password" class="form-control" [(ngModel)]="user.password" id="password" name="password" placeholder="Password" required>
+				</td>
+				<td class="message">
+					{{message}}
+				</td>
+			</tr>
+		</table>
 	</form>
 </div>

@@ -15,7 +15,7 @@ import { OrganizationService } from '../../services/organization/organization.se
 import { IndustryService } from '../../services/industry/industry.service';
 import { OccupationService } from '../../services/occupation/occupation.service';
 
-
+import * as firebase from 'firebase';
 
 @Component({
 	selector: 'member-ds',
@@ -40,6 +40,7 @@ export class MemberDsComponent implements OnChanges {
 	employmentFrom: string;
 	employmentTo: string;
 	prefComm: string;
+	photoUrl: string;
 
 	//members: Member[];
 
@@ -108,6 +109,19 @@ export class MemberDsComponent implements OnChanges {
 		console.log(this.member);
 		this.selectedCompany = null;
 		this.selectedOrganization = null;
+
+		var memberID = this.member._id.toString();
+		var photoPath = 'gs://rm-ds-db.appspot.com/photos/' + memberID + '.jpg';
+		//var pnpPath = 'gs://rm-ds-db.appspot.com/photos/pnp.jpg';
+
+		var storage = firebase.storage();
+		var gsReference = storage.refFromURL(photoPath);
+		gsReference.getDownloadURL().then((url) => {
+			//console.log('url: ' + url)
+			this.photoUrl = url;
+		}).catch((error) => {
+			this.photoUrl = '/assets/img/photo/pnp.png'
+		})
 
 		// BEGIN trying to fix data persistence between datasheets
 		// This looks like it worked.  Keep an eye on this for unintended effects

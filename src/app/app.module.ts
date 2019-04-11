@@ -14,8 +14,13 @@ import { AuthService } from './services/auth/auth.service';
 import { AuthGuard } from './services/auth-guard/auth-guard.service';
 // END imports for auth
 
+// import for file upload
+//import { FileUploadModule } from 'ng2-file-upload';
+import { FileSelectDirective } from 'ng2-file-upload';
+
 // Components
 import { AddMemberComponent }           from './components/add-member/add-member.component';
+import { AdminComponent }               from './components/admin/admin.component';
 import { AppComponent }                 from './app.component';
 import { BlankComponent }               from './components/blank/blank.component';
 import { CompanyListComponent }         from './components/company-list/company-list.component';
@@ -32,6 +37,8 @@ import { NavBarComponent }              from './components/nav-bar/nav-bar.compo
 import { OccupationListComponent }      from './components/occupation-list/occupation-list.component';
 import { OrganizationListComponent }    from './components/organization-list/organization-list.component';
 import { OrganizationMembersComponent } from './components/organization-members/organization-members.component';
+import { PasswordResetComponent }       from './components/password-reset/password-reset.component';
+import { PhotoUploadComponent }         from './components/photo-upload/photo-upload.component';
 
 // Services
 import { CompanyService }      from './services/company/company.service';
@@ -40,6 +47,8 @@ import { MeetingService }      from './services/meeting/meeting.service';
 import { MemberService }       from './services/member/member.service';
 import { OccupationService }   from './services/occupation/occupation.service';
 import { OrganizationService } from './services/organization/organization.service';
+
+
 
 @NgModule({
   imports: [
@@ -50,14 +59,17 @@ import { OrganizationService } from './services/organization/organization.servic
     //AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+		AngularFireAuthModule,
+		//FileUploadModule
   ],
   declarations: [
     AddMemberComponent,
-    AppComponent,
+    AdminComponent,
+		AppComponent,
     BlankComponent,
     CompanyListComponent,
-    CompanyMembersComponent,
+		CompanyMembersComponent,
+		FileSelectDirective,
     HeaderComponent,
     IndustryListComponent,
     OccupationListComponent,
@@ -70,7 +82,8 @@ import { OrganizationService } from './services/organization/organization.servic
     MeetingComponent,
     LoginComponent,
     NavBarComponent,
-    BlankComponent,
+    PasswordResetComponent,
+    PhotoUploadComponent,
   ],
   providers: [
     CompanyService,

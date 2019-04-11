@@ -1,3 +1,5 @@
+//import { FileUploader } from 'ng2-file-upload';
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -15,6 +17,13 @@ import { IndustryService } from '../../services/industry/industry.service';
 
 import { Occupation } from '../../classes/occupation';
 import { OccupationService } from '../../services/occupation/occupation.service';
+
+// File uploader
+//const URL = 'https://rm-ds-db.firebaseapp.com/api/upload';
+
+import * as firebase from 'firebase';
+//import * as firebase from 'firebase/storage';
+
 
 @Component({
   selector: 'list',
@@ -55,10 +64,12 @@ export class AddMemberComponent implements OnInit {
   targetComps: string[];
   targetOccs: string[];
   targetIndustry: string;
-  filterStr = '';
+	filterStr = '';
+	file: File;
 
-  num_sections = 5; // there are 5 accordion sections
-
+	num_sections = 5; // there are 5 accordion sections
+	
+	//public uploader:FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
 
   constructor(
     private router: Router,
@@ -139,7 +150,20 @@ export class AddMemberComponent implements OnInit {
     this.getOrganizations();
     this.getIndustries();
 		this.getOccupations();
-  }
+
+	}
+	
+	onFileChange(event) {
+		this.file = event.target.files[0];
+	}
+
+	uploadPhoto() {
+		var storageRef = firebase.storage().ref();
+		var photoRef = storageRef.child('photos/test.jpg')
+		photoRef.put(this.file).then(function(snapshot) {
+			console.log('Uploaded a blob or file!');
+		});
+	}
 
   submit(): void {
     this.lastEditDate = new Date();

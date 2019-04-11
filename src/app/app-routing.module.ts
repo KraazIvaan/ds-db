@@ -2,6 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AddMemberComponent }  from './components/add-member/add-member.component';
+import { AdminComponent }  from './components/admin/admin.component';
 import { BlankComponent }  from '././components/blank/blank.component';
 import { CompanyListComponent }     from './components/company-list/company-list.component';
 import { IndustryListComponent }     from './components/industry-list/industry-list.component';
@@ -12,8 +13,8 @@ import { MemberListComponent }  from './components/member-list/member-list.compo
 import { MemberDsComponent }    from './components/member-ds/member-ds.component';
 import { OccupationListComponent }     from './components/occupation-list/occupation-list.component';
 import { OrganizationListComponent }     from './components/organization-list/organization-list.component';
-
-
+import { PasswordResetComponent }     from './components/password-reset/password-reset.component';
+import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
 
 import { AuthGuard } from "./services/auth-guard/auth-guard.service";
 
@@ -76,11 +77,25 @@ const routes: Routes = [
     path: 'member-edit/:id',
     canActivate: [AuthGuard],
     component: MemberEditComponent
+	},
+  {
+    path: 'photo-upload/:id',
+    canActivate: [AuthGuard],
+    component: PhotoUploadComponent
   },
   {
     path: 'meetings',
     canActivate: [AuthGuard],
     component: MeetingListComponent
+	},
+	{
+    path: 'admin',
+    canActivate: [AuthGuard],
+    component: AdminComponent
+	},
+  {
+    path: 'password-reset',
+    component: PasswordResetComponent
   }
 ];
 

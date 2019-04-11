@@ -7,53 +7,52 @@
 				<table>
 					<tr>
 						<td class="label">First Name: </td>
-						<td><input [(ngModel)]="member.first"></td>
+						<td class="input"><input [(ngModel)]="member.first"></td>
 					</tr>
 					<tr>
 						<td class="label">Last Name: </td>
-						<td><input [(ngModel)]="member.last"></td>
+						<td class="input"><input [(ngModel)]="member.last"></td>
 					</tr>
 					<tr>
 						<td class="label">Street Address: </td>
-						<td><input [(ngModel)]="member.address"></td>
+						<td class="input"><input [(ngModel)]="member.address"></td>
 					</tr>
 					<tr>
 						<td class="label">City: </td>
-						<td><input [(ngModel)]="member.city"></td>
+						<td class="input"><input [(ngModel)]="member.city"></td>
 					</tr>
 					<tr>
 						<td class="label">State: </td>
-						<td><input [(ngModel)]="member.state"></td>
+						<td class="input"><input [(ngModel)]="member.state"></td>
 					</tr>
 					<tr>
 						<td class="label">Zip Code: </td>
-						<td><input [(ngModel)]="member.zip"></td>
+						<td class="input"><input [(ngModel)]="member.zip"></td>
 					</tr>
 					<tr>
 						<td class="label">Home Phone #: </td>
-						<td><input [(ngModel)]="member.phoneHome"></td>
+						<td class="input"><input [(ngModel)]="member.phoneHome"></td>
 					</tr>
 					<tr>
 						<td class="label">Mobile Phone #: </td>
-						<td><input [(ngModel)]="member.phoneMobile"></td>
+						<td class="input"><input [(ngModel)]="member.phoneMobile"></td>
 					</tr>
 					<tr>
 						<td class="label">Work Phone #: </td>
-						<td><input [(ngModel)]="member.phoneWork"></td>
+						<td class="input"><input [(ngModel)]="member.phoneWork"></td>
 					</tr>
 					<tr>
 						<td class="label">Email 1: </td>
-						<td><input [(ngModel)]="member.email1"></td>
+						<td class="input"><input [(ngModel)]="member.email1"></td>
 					</tr>
 					<tr>
 						<td class="label">Email 2: </td>
-						<td><input [(ngModel)]="member.email2"></td>
+						<td class="input"><input [(ngModel)]="member.email2"></td>
 					</tr>
 					<tr>
 						<td class="label">LinkedIn: </td>
-						<td><input [(ngModel)]="member.linkedin"></td>
+						<td class="input"><input [(ngModel)]="member.linkedin"></td>
 					</tr>
-
 					<tr>
 						<td class="label">Preferred Communication Method(s): </td>
 						<td>
@@ -63,7 +62,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="label">Date joined: </td>
+						<td class="label">Date joined (DD / MM / YYYY): </td>
 						<td>
 							<input [(ngModel)]="joinDateDay" size="2" maxlength="2" placeholder="DD">/
 							<input [(ngModel)]="joinDateMonth" size="2" maxlength="2" placeholder="MM">/
@@ -92,7 +91,7 @@
 					</tr>
 
 					<tr>
-						<td class="label">From: </td>
+						<td class="label">From (DD / MM / YYYY): </td>
 						<td>
 							<input [(ngModel)]="employmentFromDay" size="2" maxlength="2" placeholder="DD">/
 							<input [(ngModel)]="employmentFromMonth" size="2" maxlength="2" placeholder="MM">/
@@ -101,7 +100,7 @@
 					</tr>
 
 					<tr>
-						<td class="label">To: </td>
+						<td class="label">To (DD / MM / YYYY): </td>
 						<td *ngIf="currentlyEmployed==true">Present</td>
 						<td *ngIf="currentlyEmployed==false">
 							<input [(ngModel)]="employmentToDay" size="2" maxlength="2" placeholder="DD">/
@@ -233,6 +232,17 @@
 				</table>
 			</div>
 		</div>
+		<!--
+		<div class="accordion-section">
+			<div class="accordion-section-head" (click)="toggle(6)">Upload Photo</div>
+			<div class="accordion-section-body" id="body-6">
+				<form novalidate (ngSubmit)="onSubmit()">
+					<input type="file" #photo name="photo" id="photo" (change)="onFileChange($event)" />
+					<button type="submit">Upload Photo</button>
+				</form>
+			</div>
+		</div>
+		-->
 	</div>
 	<button (click)="submit()">Add Member</button>
 </div>

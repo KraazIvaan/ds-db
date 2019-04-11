@@ -72,9 +72,8 @@ export class MemberService {
     );
 	}
 	
-  editMember(member: Member): Observable<Member> {
-    return this.http.put<Member>(this.editMemberUrl,member,httpOptions ).pipe(
-      tap((member:Member) => console.log(`edited member w/ id=${member._id}`)),
+  editMember(member: Member, id: string): Observable<Member> {
+    return this.http.put<Member>(this.editMemberUrl + id,member,httpOptions ).pipe(
       catchError(this.handleError<Member>('editMember'))
     );
   }

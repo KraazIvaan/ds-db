@@ -10,10 +10,32 @@ var database = require('./config/db');
 var express = require('express');
 var cors = require('cors');
 
+const path = require('path');
+const fs = require('fs');
+var multer = require('multer');
+const bodyParser = require('body-parser')
+const router = express.Router();
+
+var DIR = '/src/assets/img/photo/';
+
+let storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, DIR);
+	},
+	filename: (req, file, cb) => {
+		cb(null, file.fieldname + '-' + Date.now() + '.' + path.extname(file.originalname));
+	}
+});
+let upload = multer({storage: storage});
+
+
 //const bodyParser  = require('body-parser');
 var app = express();
 // https://rm-ds-db.firebaseapp.com
 //app.options('/edit-member/', cors());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 //app.use(cors({ origin: "https://rm-ds-db.firebaseapp.com", preflightContinue: true }));
 app.use((req, res, next) => {
@@ -45,9 +67,37 @@ app.use(function(req, res, next) {
 //const database = require('./config/db');
 // [END additionalimports]
 
-app.get('/zarf/', (req, res) => {
-	res.status(200).send("items");
+/* BEGIN file upload functions
+app.use(multer({
+  dest: DIR,
+  rename: function (fieldname, filename) {
+    return filename + Date.now();
+  },
+  onFileUploadStart: function (file) {
+    console.log(file.originalname + ' is starting ...');
+  },
+  onFileUploadComplete: function (file) {
+    console.log(file.fieldname + ' uploaded to  ' + file.path);
+  }
+}));
+*/
+
+app.post('/upload',upload.single('photo'), function (req, res) {
+	if (!req.file) {
+			console.log("No file received");
+			return res.send({
+				success: false
+			});
+	
+		} else {
+			console.log('file received successfully');
+			return res.send({
+				success: true
+			})
+		}
 });
+// END file upload functions
+
 
 // BEGIN member functions
 app.get('/members/', (req, res) => {
@@ -105,7 +155,7 @@ app.get('/members-company-contacts/:id', (req, res) => {
 		var db = client.db('dsdb');
 
 		const id = req.params.id;
-		const details = { 'companies': id };
+		const details = { 'contactsInComps': id };
 		db.collection('members').find(details)
 			.toArray((err, items) => {
 				if (err) {
@@ -123,7 +173,7 @@ app.get('/members-company-targets/:id', (req, res) => {
 		var db = client.db('dsdb');
 
 		const id = req.params.id;
-		const details = { 'targets': id };
+		const details = { 'targetComps': id };
 		db.collection('members').find(details)
 			.toArray((err, items) => {
 				if (err) {
@@ -141,7 +191,7 @@ app.get('/members-organization/:id', (req, res) => {
 		var db = client.db('dsdb');
 
 		const id = req.params.id;
-		const details = { 'organizations': id };
+		const details = { 'memberOfOrgs': id };
 		db.collection('members').find(details)
 			.toArray((err, items) => {
 				if (err) {
@@ -200,13 +250,13 @@ app.post('/add-member', (req, res) => {
 	});
 });
 
-app.put('/edit-member/', (req, res) => {
+app.put('/edit-member/:id', (req, res) => {
 	console.log('calling edit member');
 	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		console.log('inside connect in edit member');
 		console.log('req.body before: ', req.body);
-		const id = new ObjectID(req.body.id);
-		const filter = { '_id':  id };
+		const id = req.params.id;
+		const filter = { '_id':  new ObjectID(id) };
 		delete req.body._id;
 		console.log('req.body after: ', req.body);
 		console.log('req.method: ', req.method);
@@ -218,7 +268,7 @@ app.put('/edit-member/', (req, res) => {
 			}
 			else {
 				//res.send(result.ops[0]);
-				res.status(200).send('edit member success');
+				res.status(200).send({'success' : 'edit member success'});
 			}
 		});
 	});

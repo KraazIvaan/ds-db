@@ -147,7 +147,7 @@ export class MemberEditComponent implements OnInit {
 
 			this.joinDate = new Date(member.joinDate);
 			this.joinDateYear = this.joinDate.getFullYear();
-			this.joinDateMonth = this.joinDate.getMonth();
+			this.joinDateMonth = this.joinDate.getMonth() + 1;
 			this.joinDateDay = this.joinDate.getDate();
 
 			this.employmentFrom = new Date(member.employmentFrom);
@@ -207,7 +207,7 @@ export class MemberEditComponent implements OnInit {
     this.member.memberOfOrgs = this.memberOfOrgs;
     this.member.pastEmployers = this.pastEmployers;
     this.member.careerStage = this.careerStage;
-    this.memberService.editMember(this.member).subscribe((data) => {
+    this.memberService.editMember(this.member, this.member._id).subscribe((data) => {
 			this.router.navigate(['/members']);
 		}, (error) => {
 			console.log("err", error);

@@ -63,7 +63,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="label">Date joined: </td>
+						<td class="label">Date joined (DD / MM / YYYY): </td>
 						<td>
 							<input [(ngModel)]="joinDateDay" size="2" maxlength="2" placeholder="DD">/
 							<input [(ngModel)]="joinDateMonth" size="2" maxlength="2" placeholder="MM">/
@@ -92,7 +92,7 @@
 					</tr>
 
 					<tr>
-						<td class="label">From: </td>
+						<td class="label">From (DD / MM / YYYY): </td>
 						<td>
 							<input [(ngModel)]="employmentFromDay" size="2" maxlength="2" placeholder="DD">/
 							<input [(ngModel)]="employmentFromMonth" size="2" maxlength="2" placeholder="MM">/
@@ -101,7 +101,7 @@
 					</tr>
 
 					<tr>
-						<td class="label">To: </td>
+						<td class="label">To (DD / MM / YYYY): </td>
 						<td *ngIf="currentlyEmployed==true">Present</td>
 						<td *ngIf="currentlyEmployed==false">
 							<input [(ngModel)]="employmentToDay" size="2" maxlength="2" placeholder="DD">/

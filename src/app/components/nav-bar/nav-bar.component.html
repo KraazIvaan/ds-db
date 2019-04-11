@@ -1,10 +1,11 @@
 <div class="nav">
-  <span>Logged in as:  {{email}} </span>
-  <a [ngClass]="{'selected': index == 1}" (click)="select(1)" routerLink="/members" routerLinkActive="active">Members</a>
-  <a [ngClass]="{'selected': index == 2}" (click)="select(2)" routerLink="/companies" routerLinkActive="active" >Companies</a>
-  <a [ngClass]="{'selected': index == 3}" (click)="select(3)" routerLink="/organizations" routerLinkActive="active" >Organizations</a>
-  <a [ngClass]="{'selected': index == 4}" (click)="select(4)" routerLink="/industries" routerLinkActive="active" >Industries</a>
-  <a [ngClass]="{'selected': index == 5}" (click)="select(5)" routerLink="/occupations" routerLinkActive="active" >Occupations</a>
+	<span>Logged in as:  {{email}} </span>
+	<a [ngClass]="{'selected': index == 1}" (click)="select(1)" routerLink="/admin" routerLinkActive="active">Admin</a>
+	<a [ngClass]="{'selected': index == 2}" (click)="select(2)" routerLink="/members" routerLinkActive="active">Members</a>
+  <a [ngClass]="{'selected': index == 3}" (click)="select(3)" routerLink="/companies" routerLinkActive="active" >Companies</a>
+  <a [ngClass]="{'selected': index == 4}" (click)="select(4)" routerLink="/organizations" routerLinkActive="active" >Organizations</a>
+  <a [ngClass]="{'selected': index == 5}" (click)="select(5)" routerLink="/industries" routerLinkActive="active" >Industries</a>
+  <a [ngClass]="{'selected': index == 6}" (click)="select(6)" routerLink="/occupations" routerLinkActive="active" >Occupations</a>
   <!--<a [ngClass]="{'selected': index == 6}" (click)="select(6)" routerLink="/meetings" routerLinkActive="active" >Meetings</a>-->
   <a href="" (click)="logout()">Logout</a>
 </div>
