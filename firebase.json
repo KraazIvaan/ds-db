@@ -1,6 +1,7 @@
 {
   "functions": {
     "predeploy": [],
+    "runtime": "nodejs10",
     "source": "functions"
   },
   "hosting": {

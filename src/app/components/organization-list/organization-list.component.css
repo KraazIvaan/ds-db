@@ -5,8 +5,8 @@ h1 {
 
 
 .selected {
-  background-color: #CFD8DC !important;
-  color: white;
+	background-color: #AAAAFF;
+	font-weight: bold;
 }
 
 button {
@@ -25,7 +25,7 @@ button:hover {
   width: 380px;
   cursor: pointer;
 	position: relative;
-  background-color: #fff0f0;
+  background-color: #FFAAAA;
 	padding-left: 5px;
 	margin-bottom: 5px;
 	height: 30px;

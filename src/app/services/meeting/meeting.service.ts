@@ -2,9 +2,6 @@ import { Meeting } from '../../classes/meeting';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { Company } from '../../classes/company';
-import { CompanyService } from '../company/company.service';
-
 import { Observable } from 'rxjs/Observable'
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -31,11 +28,13 @@ export class MeetingService {
   private editMeetingUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/edit-meeting/';
   
   // private deleteMeetingUrl = 'http://localhost:8000/delete-meeting/';
-  private deleteMeetingUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/delete-meeting/';
+	private deleteMeetingUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/delete-meeting/';
+	
+  //private updateMeetingMemsUrl = 'https://localhost:4200/api/update-meeting-mems/';
+	private updateMeetingMemsUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/update-meeting-mems/';
   
   constructor(
     private http: HttpClient,
-    private companyService: CompanyService
   ) {  }
   
   getMeetings(): Observable<Meeting[]>{
@@ -56,8 +55,16 @@ export class MeetingService {
       tap((meeting:Meeting) => console.log(`added meeting w/ id=${meeting._id}`)),
       catchError(this.handleError<Meeting>('addMeeting'))
     );
-  }
+	}
 
+	//updateMeetingMems(id: string, members: string[]): Observable<Meeting> {
+  updateMeetingMems(body: object): Observable<Meeting> {
+    return this.http.post<Meeting>(this.updateMeetingMemsUrl,body,httpOptions ).pipe(
+      tap((meeting:Meeting) => console.log(`updated meeting`)),
+      catchError(this.handleError<Meeting>('updateMeeting'))
+    );
+	}
+	
 /**
    * Handle Http operation that failed.
    * Let the app continue.

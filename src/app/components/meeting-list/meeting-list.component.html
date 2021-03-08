@@ -1,46 +1,80 @@
-<div class="meeting-content">
-    <h1>{{title}}</h1>
-  <div class="meeting-col">
-    <div class="heroes">
-      <div>{{currMonth}}</div>
-      <ng-container *ngFor="let meeting of currMeetings"
-        [class.selected]="meeting === selectedMeeting">
-        <div class="meeting">
-          <span (click)="onEdit(meeting)" class="edit">{{meeting.dayOfMonth}}</span>
-    	  <!-- <span (click)="onDelete(meeting)" class="delete">X</span>-->
-          <span (click)="onSelect(meeting)">{{meeting.topic}}</span>
-        </div>
-      </ng-container>
-    </div>
-    <div class="heroes">
-      <div>{{nextMonth}}</div>
-      <ng-container *ngFor="let meeting of nextMeetings"
-        [class.selected]="meeting === selectedMeeting">
-        <div class="meeting">
-          <span (click)="onEdit(meeting)" class="edit">{{meeting.dayOfMonth}}</span>
-    	  <!-- <span (click)="onDelete(meeting)" class="delete">X</span>-->
-          <span (click)="onSelect(meeting)">{{meeting.topic}}</span>
-        </div>
-      </ng-container>
-    </div>
-    <!--
-    <div *ngIf="editedCompany.name.length > 0">
-      <br>
-	  Edit {{editedCompany.name}}<br>
-	  New Name: <input #editedCompanyName placeholder="{{editedCompany.name}}">
-	  <button (click)="onEditSave(editedCompanyName.value); editedCompany.name=''">Save</button>
-	  <button (click)="editedCompany.name=''">Cancel</button>
+<div class="meeting-list-col">
+	<div class="meetings">
+		<div class="month-header">
+			<div class="attendance-header">Attending?</div>
+			<div class="month-label">{{currMonth}}</div>
+		</div>
+
+		<!-- <ng-container *ngFor="let meeting of currMeetings"> -->
+		<div *ngFor="let meeting of currMeetings" class="meeting-container">
+			<div class="attendance">
+				<span *ngIf="meeting.members.indexOf(this.member_id) > -1">Yes</span>
+			</div>
+			<div class="meeting" [class.selected]="meeting === selectedMeeting" (click)="onSelect(meeting)">
+				<span class="edit">{{meeting.dayOfMonth}}</span>
+				<span>{{meeting.topic}}</span>
+			</div>
+		</div>
+
+		<!-- </ng-container> -->
 	</div>
-	<div>
-	  <br>
-	    <p>Add Company:</p>
-	    <input #newCompanyName placeholder="New Company Name">
-	    <button (click)="addCompany(newCompanyName.value); newCompanyName.value=''">Add Company</button>
-    </div>
-    -->
-  </div>
-  <!--[meeting]="selectedMeeting" in next line-->
-  <div *ngIf="selectedMeeting.topic.length > 0">
-    <meeting-details [meeting]="selectedMeeting"></meeting-details>
-  </div>
+
+
+	<form [formGroup]="memberAttendanceFormGroup" (ngSubmit)="onSubmit()">
+		<div class="meetings">
+			<!-- width: 490px, margin 2em bottom -->
+			<span formArrayName="memberAttendanceForm" class="attendance-form">
+				<!-- width: 80px, display: inline block -->
+				<div class="attendance-header">Yes / No</div> <!-- width: 80px, display: inline block -->
+				<div *ngFor="let c of memberAttendanceForm.controls; let i=index" class="attendance-next">
+					<!-- width: 80px, display: inline block -->
+					<!--
+					<input type="radio" [name]="nextMeetings[i]._id" [formControl]="memberAttendanceForm[i]" value="yes">
+					<input type="radio" [name]="nextMeetings[i]._id" [formControl]="memberAttendanceForm[i]" value="no">
+					-->
+					<input type="radio" [formControlName]="i" value="yes">
+					<input type="radio" [formControlName]="i" value="no">
+				</div>
+			</span>
+			<span class="next-month-meetings">
+				<!-- width: 400px -->
+				<div class="month-label">{{nextMonth}}</div>
+				<!-- width: 390px -->
+				<div *ngFor="let meeting of nextMeetings" class="meeting" [class.selected]="meeting === selectedMeeting"
+					(click)="onSelect(meeting)">
+					<!-- 380x60 -->
+					<span class="edit">{{meeting.dayOfMonth}}</span>
+					<span>{{meeting.topic}}</span>
+				</div>
+			</span>
+		</div>
+		<button type="submit">Set attendance for {{nextMonth}}</button>
+	</form>
+
+
+	<!-- working reference
+	<div class="meetings">
+		<form [formGroup]="memberAttendanceForm" (ngSubmit)="onSubmit()">
+			<div class="month-header">
+				<div class="attendance-header">Yes / No</div>
+				<div class="month-label">{{nextMonth}}</div>
+			</div>
+			<ng-container *ngFor="let meeting of nextMeetings">
+				<div class="meeting-container">
+					<div class="attendance">
+						<input type="radio" name="meeting._id" value="yes">
+						<input type="radio" name="meeting._id" value="no">
+					</div>
+					<div class="meeting" [class.selected]="meeting === selectedMeeting" (click)="onSelect(meeting)">
+						<span class="edit">{{meeting.dayOfMonth}}</span>
+						<span>{{meeting.topic}}</span>
+					</div>
+				</div>
+			</ng-container>
+			<button type="submit">Set attendance for {{nextMonth}}</button>
+		</form>
+	</div>
+-->
 </div>
+
+<meeting-details *ngIf="selectedMeeting != null" [meeting]="selectedMeeting"></meeting-details>

@@ -26,7 +26,8 @@ export class MemberService {
   private memTarCompUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/members-company-targets/';
   private memInOrgUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/members-organization/';
   private memsAtMeetUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/members-meeting/';
-  private detailUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/member/';
+	private detailUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/member/';
+	private memEmailUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/member-email/';
   private addMemberUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/add-member/';
   private editMemberUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/edit-member/';
   private deleteMemberUrl = 'https://us-central1-rm-ds-db.cloudfunctions.net/api/delete-member/';
@@ -63,6 +64,10 @@ export class MemberService {
 
   getMember(id: string): Observable<Member>{
     return this.http.get<Member>(this.detailUrl + id);
+	}
+	
+	getMemberFromEmail(email: string): Observable<Member>{
+    return this.http.get<Member>(this.memEmailUrl + email);
   }
 
   addMember(member: Member): Observable<Member> {

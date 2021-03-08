@@ -1,10 +1,40 @@
 <div class="meeting-col">
-  <div>Topic: {{meeting.topic}}</div>
-  <div>Date: {{meetingDate}}</div>
-  <div>Members attending:<span *ngIf="memsAtMeet.length == 0"> None at this time</span></div>
-  <ul class="heroes" *ngIf="memsAtMeet.length > 0">
-    <li *ngFor="let member of memsAtMeet">
-      <span class="badge">{{member.id}}</span><span>{{member.first}} {{member.last}}</span>
-    </li>
-  </ul>
+	<div class="meeting-col-header">
+		<div class="label-wrapper">
+			<label>Topic:</label> {{meeting.topic}}
+		</div>
+		<div class="label-wrapper">
+			<label>Date:</label> {{meetingDate}}
+		</div>
+		<div class="tabs">
+			<span class="meetingTab" (click)="onSelectMembers()" [ngClass]="selectedTab == 'members' ? 'selectedTab' : ''">
+				Attendees
+			</span>
+			<span class="meetingTab" (click)="onSelectQuestions()" [ngClass]="selectedTab == 'questions' ? 'selectedTab' : ''">
+				Questions
+			</span>
+		</div>
+	</div>
+
+	<div class="member-display" *ngIf="selectedTab == 'members'">
+		<div>Members attending:<span *ngIf="memsAtMeet.length == 0"> None at this time</span></div>
+		<ul class="members" *ngIf="memsAtMeet.length > 0">
+			<li *ngFor="let member of memsAtMeet" class="member" [class.selected]="member === selectedMember"
+				(click)="onViewMemberDS(member)">
+				<!-- <span class="badge">{{member.id}}</span>-->
+				<span>{{member.first}} {{member.last}}</span>
+			</li>
+		</ul>
+	</div>
+
+	<div class="question-display" *ngIf="selectedTab == 'questions'">
+		<div>Discussion Questions:</div>
+		<ul class="questions">
+			<li *ngFor="let question of questions" class="question">
+				<span>{{question}}</span>
+			</li>
+		</ul>
+	</div>
 </div>
+
+<member-ds *ngIf="selectedMember != null" [member]="selectedMember"></member-ds>

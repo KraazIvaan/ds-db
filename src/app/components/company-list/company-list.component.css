@@ -2,10 +2,6 @@ h1 {
   font-family: "Arial", sans;
   margin: 5px;
 }
-.selected {
-  background-color: #CFD8DC !important;
-  color: white;
-}
 .company-content {
   height: calc(100% - 10px);
 }
@@ -13,7 +9,7 @@ h1 {
   width: 380px;
   cursor: pointer;
 	position: relative;
-  background-color: #fff0f0;
+  background-color: #FFAAAA;
 	padding-left: 5px;
 	margin-bottom: 5px;
 	height: 30px;
@@ -23,7 +19,11 @@ h1 {
   border: 1px solid black;
 }
 .company:hover {
-  background-color: #ddf;
+  background-color: #D0D0F0;
+}
+.selected {
+	background-color: #AAAAFF;
+	font-weight: bold;
 }
 .company-list-col {
   font-family: "Arial", sans;

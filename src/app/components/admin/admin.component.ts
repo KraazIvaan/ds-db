@@ -38,6 +38,10 @@ export class AdminComponent implements OnInit {
 	onEdit(): void {
     this.router.navigate(['/member-edit', this.selectedMember._id]);
 	}
+
+	addMeeting(): void {
+    this.router.navigate(['/add-meeting']);
+	}
 	
 	onUpload(): void {
     this.router.navigate(['/photo-upload', this.selectedMember._id]);

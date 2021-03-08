@@ -1,7 +1,7 @@
 import { NgModule }        from '@angular/core';
 import { BrowserModule }   from '@angular/platform-browser';
-import { FormsModule }     from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -19,6 +19,7 @@ import { AuthGuard } from './services/auth-guard/auth-guard.service';
 import { FileSelectDirective } from 'ng2-file-upload';
 
 // Components
+import { AddMeetingComponent }           from './components/add-meeting/add-meeting.component';
 import { AddMemberComponent }           from './components/add-member/add-member.component';
 import { AdminComponent }               from './components/admin/admin.component';
 import { AppComponent }                 from './app.component';
@@ -54,7 +55,8 @@ import { OrganizationService } from './services/organization/organization.servic
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,
+		FormsModule,
+		ReactiveFormsModule,
     AppRoutingModule,
     //AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireModule.initializeApp(environment.firebase),
@@ -63,6 +65,7 @@ import { OrganizationService } from './services/organization/organization.servic
 		//FileUploadModule
   ],
   declarations: [
+		AddMeetingComponent,
     AddMemberComponent,
     AdminComponent,
 		AppComponent,

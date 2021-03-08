@@ -1,20 +1,31 @@
 <div class="admin">
+	<ul>
+		<li>
+			For now, Upload photo only works with .jpg files.  I'll make it work with more later.
+		</li>
+		<li>
+			Update Datasheet will only work if you've alredady created one.  Otherwise, nothing will happen.
+		</li>
+	</ul>
 	<div class="menu">
 		<div class="option" (click)="onUpload()">
 			Upload Photo
 		</div>
-		<div class="option">
+		<!--<div class="option">
 			Change Password
-		</div>
+		</div>-->
 		<a class="option" routerLink="/add-member" routerLinkActive="active">
 			Create Datasheet
 		</a>
 		<div class="option" (click)="onEdit()">
 			Update Datasheet
 		</div>
-		<div class="option">
-			Add Member
+		<div class="option" (click)="addMeeting()">
+			Add Meeting
 		</div>
+		<!--<div class="option">
+			Add Member
+		</div>-->
 	</div>
 	<div class="content">
 

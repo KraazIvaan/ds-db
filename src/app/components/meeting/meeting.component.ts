@@ -14,11 +14,14 @@ import { MeetingService } from '../../services/meeting/meeting.service';
   templateUrl: './meeting.component.html',
   styleUrls: ['./meeting.component.css']
 })
-export class MeetingComponent implements OnChanges {
+export class MeetingComponent implements OnChanges, OnInit {
   @Input() meeting: Meeting;
   meetingDate: string;
   meetingMonth: string;
-  memsAtMeet: Member[];
+	memsAtMeet: Member[];
+	selectedMember: Member;
+	selectedTab: string;
+	questions: string[];
 
   constructor(
     private memberService: MemberService,
@@ -32,6 +35,7 @@ export class MeetingComponent implements OnChanges {
   }
   
   getMeetingDate(): void {
+		console.log('date as read: ' + this.meeting.date);
     let d = new Date(this.meeting.date);
     this.meetingDate = d.toLocaleDateString(undefined, {  
       day : 'numeric',
@@ -41,9 +45,11 @@ export class MeetingComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log('meeting component onChanges called');
+		console.log('meeting component onChanges called');
+		console.log(this.meeting);
     this.getMemsAtMeet();
-    this.getMeetingDate();
+		this.getMeetingDate();
+		this.questions = this.meeting.questions;
     /*
     this.route.params
       .switchMap((params: Params) => this.meetingService.getMeeting(params['id']))
@@ -59,5 +65,27 @@ export class MeetingComponent implements OnChanges {
         })
       });
       */
+	}
+	
+	ngOnInit(): void {
+		console.log('meeting component onInit called');
+		this.memsAtMeet = [];
+		this.getMemsAtMeet();
+		this.getMeetingDate();
+		this.selectedTab = "";
+	}
+
+	onSelectQuestions(): void {
+		this.selectedTab = "questions";
+		console.log('selected tab: ' + this.selectedTab);
+	}
+
+	onSelectMembers(): void {
+		this.selectedTab = "members";
+		console.log('selected tab: ' + this.selectedTab);
+	}
+
+	onViewMemberDS(member: Member): void {
+    this.selectedMember = member;
   }
 }

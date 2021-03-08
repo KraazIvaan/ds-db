@@ -14,6 +14,7 @@ import * as firebase from 'firebase';
 export class PhotoUploadComponent implements OnInit {
 	file: File;
 	id: string;
+	message = "";
 
   constructor(
 		private route: ActivatedRoute,
@@ -32,8 +33,9 @@ export class PhotoUploadComponent implements OnInit {
 		var storageRef = firebase.storage().ref();
 		var filename = 'photos/' + this.id + '.jpg';
 		var photoRef = storageRef.child(filename)
-		photoRef.put(this.file).then(function(snapshot) {
-			console.log('Photo uploaded');
+		photoRef.put(this.file).then((snapshot) => {
+			//console.log('Photo uploaded');
+			this.message = "Photo uploaded.";
 		});
 	}
 }

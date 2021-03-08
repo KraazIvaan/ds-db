@@ -33,12 +33,20 @@ export class AuthService {
 
 	isLoggedIn() {
 		if (this.userDetails == null) {
-			console.log('ILI called, returning false');
+			//console.log('ILI called, returning false');
 			return false;
 		} else {
-			console.log('ILI called, returning true');
-			console.log('email:' + this.userDetails.email);
+			//console.log('ILI called, returning true');
+			//console.log('email:' + this.userDetails.email);
 			return true;
+		}
+	}
+
+	getCurrUserEmail() {
+		if (this.userDetails == null) {
+			return false;
+		} else {
+			return this.userDetails.email;
 		}
 	}
 

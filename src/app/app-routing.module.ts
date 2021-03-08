@@ -1,6 +1,7 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AddMeetingComponent }  from './components/add-meeting/add-meeting.component';
 import { AddMemberComponent }  from './components/add-member/add-member.component';
 import { AdminComponent }  from './components/admin/admin.component';
 import { BlankComponent }  from '././components/blank/blank.component';
@@ -87,6 +88,11 @@ const routes: Routes = [
     path: 'meetings',
     canActivate: [AuthGuard],
     component: MeetingListComponent
+	},
+	{
+    path: 'add-meeting',
+    canActivate: [AuthGuard],
+    component: AddMeetingComponent
 	},
 	{
     path: 'admin',

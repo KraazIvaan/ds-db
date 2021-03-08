@@ -26,7 +26,7 @@ let storage = multer.diskStorage({
 		cb(null, file.fieldname + '-' + Date.now() + '.' + path.extname(file.originalname));
 	}
 });
-let upload = multer({ storage: storage });
+let upload = multer({storage: storage});
 
 
 //const bodyParser  = require('body-parser');
@@ -35,20 +35,20 @@ var app = express();
 //app.options('/edit-member/', cors());
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 //app.use(cors({ origin: "https://rm-ds-db.firebaseapp.com", preflightContinue: true }));
 app.use((req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header(
-		"Access-Control-Allow-Headers",
-		"Origin, X-Requested-With, Content-Type, Accept, Authorization"
-	);
-	if (req.method === "OPTIONS") {
-		res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-		return res.status(200).json({});
-	}
-	next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
 });
 
 app.options('*', cors({ origin: "https://rm-ds-db.firebaseapp.com", preflightContinue: true }));
@@ -82,27 +82,27 @@ app.use(multer({
 }));
 */
 
-app.post('/upload', upload.single('photo'), function (req, res) {
+app.post('/upload',upload.single('photo'), function (req, res) {
 	if (!req.file) {
-		console.log("No file received");
-		return res.send({
-			success: false
-		});
-
-	} else {
-		console.log('file received successfully');
-		return res.send({
-			success: true
-		})
-	}
+			console.log("No file received");
+			return res.send({
+				success: false
+			});
+	
+		} else {
+			console.log('file received successfully');
+			return res.send({
+				success: true
+			})
+		}
 });
 // END file upload functions
 
 
 // BEGIN member functions
 app.get('/members/', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		db.collection('members').find({}).toArray((err, items) => {
 			client.close();
 			if (err) {
@@ -116,8 +116,8 @@ app.get('/members/', (req, res) => {
 });
 
 app.get('/member/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
 		db.collection('members').findOne(details, (err, item) => {
@@ -132,26 +132,9 @@ app.get('/member/:id', (req, res) => {
 	});
 });
 
-app.get('/member-email/:email', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
-		const email = req.params.email;
-		const details = { 'email1': email };
-		db.collection('members').findOne(details, (err, item) => {
-			client.close();
-			if (err) {
-				res.send({ 'error': 'An error has occurred.' });
-			}
-			else {
-				res.send(item);
-			}
-		});
-	});
-});
-
 app.get('/members-company-employed/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const id = req.params.id;
 		const details = { 'employmentCompany': id };
@@ -168,8 +151,8 @@ app.get('/members-company-employed/:id', (req, res) => {
 });
 
 app.get('/members-company-contacts/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const id = req.params.id;
 		const details = { 'contactsInComps': id };
@@ -186,8 +169,8 @@ app.get('/members-company-contacts/:id', (req, res) => {
 });
 
 app.get('/members-company-targets/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const id = req.params.id;
 		const details = { 'targetComps': id };
@@ -204,8 +187,8 @@ app.get('/members-company-targets/:id', (req, res) => {
 });
 
 app.get('/members-organization/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const id = req.params.id;
 		const details = { 'memberOfOrgs': id };
@@ -222,58 +205,37 @@ app.get('/members-organization/:id', (req, res) => {
 });
 
 app.get('/members-meeting/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
-		const id = req.params.id;
-
-		// create an ObjectID from the _id of the meeting
-		const details = { '_id': new ObjectID(id) };
-		const details2 = { '_id': 0, 'members': 1 };
-
-		// find the meeting with the given _id
-		db.collection('meetings').find(details, details2)
-			.toArray((err, items) => {
-				// if there was an error getting the meeting, return
-				if (err) {
-					res.send({ 'error': 'An error has occurred.' });
-				}
-
-				// if there was no error getting the meeting
-				else {
-					// ids is an array which will contain the _id fields for the members at the meeting
-					var ids = [];
-
-					// if there are no members at the meeting, return an empty array
-					if (items[0].members.length == 0) {
-						res.send([]);
-					}
-
-					// if there are members at the meeting:
-					else {
-						// for each member at the meeting, create an ObjectID and push it to the ids[] array
-						items[0].members.forEach(function (item, index) {
-							ids.push(new ObjectID(item))
-						})
-						const details3 = { _id: { $in: ids } };
-						// search for each member whose id is in the ids[] array
-						db.collection('members').find(details3)
-							.toArray((err2, mems) => {
-								if (err2) {
-									res.send({ 'error': 'An error has occurred.' });
-								}
-								else {
-									res.send(mems);
-								}
-							});  // closes members.find.toArray call and callback
-					}
-				}  // closes else within meetings.find.toArray
-			});  // closes meetings.find.toArray call and callback
-	}); // closes MongoClient.connect
+	const id = req.params.id;
+	//const details = {'meetings' : id};
+	const details = { '_id': new ObjectID(id) };
+	const details2 = { '_id': 0, 'members': 1 };
+	db.collection('meetings').find(details, details2)
+		.toArray((err, items) => {
+			if (err) {
+				res.send({ 'error': 'An error has occurred.' });
+			}
+			else {
+				var ids = [];
+				items[0].members.forEach(function (item, index) {
+					ids.push(new ObjectID(item))
+				})
+				const details3 = { _id: { $in: ids } };
+				db.collection('members').find(details3)
+					.toArray((err2, mems) => {
+						if (err2) {
+							res.send({ 'error': 'An error has occurred.' });
+						}
+						else {
+							res.send(mems);
+						}
+					});  // closes members.find.toArray call and callback
+			}  // closes else within meetings.find.toArray
+		});  // closes meetings.find.toArray call and callback
 }); // closes app.get call and callback
 
 app.post('/add-member', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		console.log('req.body: ', req.body);
 		console.log('req.method: ', req.method);
 		//const comp = { name: req.body.name };
@@ -290,15 +252,15 @@ app.post('/add-member', (req, res) => {
 
 app.put('/edit-member/:id', (req, res) => {
 	console.log('calling edit member');
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
 		console.log('inside connect in edit member');
 		console.log('req.body before: ', req.body);
 		const id = req.params.id;
-		const filter = { '_id': new ObjectID(id) };
+		const filter = { '_id':  new ObjectID(id) };
 		delete req.body._id;
 		console.log('req.body after: ', req.body);
 		console.log('req.method: ', req.method);
-		var db = client.db('dsdb');
+		var db = client.db('dsdb-fake');
 		//db.collection('members').replaceOne(filter, req.body, (err, result) => {
 		db.collection('members').findOneAndReplace(filter, req.body, (err, result) => {
 			if (err) {
@@ -306,7 +268,7 @@ app.put('/edit-member/:id', (req, res) => {
 			}
 			else {
 				//res.send(result.ops[0]);
-				res.status(200).send({ 'success': 'edit member success' });
+				res.status(200).send({'success' : 'edit member success'});
 			}
 		});
 	});
@@ -315,8 +277,8 @@ app.put('/edit-member/:id', (req, res) => {
 
 // BEGIN company functions
 app.get('/companies/', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		db.collection('companies').find({}).toArray((err, items) => {
 			client.close();
 			if (err) {
@@ -331,8 +293,8 @@ app.get('/companies/', (req, res) => {
 
 
 app.get('/companies/:ids', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const idsStr = req.params.ids;
 		const ids = idsStr.split('|');
@@ -356,8 +318,8 @@ app.get('/companies/:ids', (req, res) => {
 });
 
 app.get('/company/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
 		db.collection('companies').findOne(details, (err, item) => {
@@ -373,8 +335,8 @@ app.get('/company/:id', (req, res) => {
 });
 
 app.post('/add-company', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		db.collection('companies').insert(req.body, (err, result) => {
 			if (err) {
 				res.send({ 'error': 'An error has occurred.' });
@@ -390,8 +352,8 @@ app.post('/add-company', (req, res) => {
 
 // BEGIN organization functions
 app.get('/organizations', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		db.collection('organizations').find({}).toArray((err, items) => {
 			client.close();
@@ -406,8 +368,8 @@ app.get('/organizations', (req, res) => {
 });
 
 app.get('/organizations/:ids', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const idsStr = req.params.ids;
 		const ids = idsStr.split('|');
@@ -431,8 +393,8 @@ app.get('/organizations/:ids', (req, res) => {
 });
 
 app.get('/organization/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
@@ -449,8 +411,8 @@ app.get('/organization/:id', (req, res) => {
 });
 
 app.get('/organization-members/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		const id = req.params.id;
 		const details = { 'organizations': id };
 		db.collection('members').find(details)
@@ -467,8 +429,8 @@ app.get('/organization-members/:id', (req, res) => {
 });
 
 app.post('/add-organization', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		const org = { name: req.body.name, abbreviation: req.body.abbreviation };
 		db.collection('organizations').insert(org, (err, result) => {
 			if (err) {
@@ -485,8 +447,8 @@ app.post('/add-organization', (req, res) => {
 
 // BEGIN industry functions
 app.get('/industries/', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		db.collection('industries').find({}).toArray((err, items) => {
 			client.close();
 			if (err) {
@@ -501,8 +463,8 @@ app.get('/industries/', (req, res) => {
 
 
 app.get('/industries/:ids', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const idsStr = req.params.ids;
 		const ids = idsStr.split('|');
@@ -526,8 +488,8 @@ app.get('/industries/:ids', (req, res) => {
 });
 
 app.get('/industry/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
 		db.collection('industries').findOne(details, (err, item) => {
@@ -543,8 +505,8 @@ app.get('/industry/:id', (req, res) => {
 });
 
 app.post('/add-industry', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		db.collection('industries').insert(req.body, (err, result) => {
 			if (err) {
 				res.send({ 'error': 'An error has occurred.' });
@@ -559,8 +521,8 @@ app.post('/add-industry', (req, res) => {
 
 // BEGIN occupation functions
 app.get('/occupations/', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		db.collection('occupations').find({}).toArray((err, items) => {
 			client.close();
 			if (err) {
@@ -575,8 +537,8 @@ app.get('/occupations/', (req, res) => {
 
 
 app.get('/occupations/:ids', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 
 		const idsStr = req.params.ids;
 		const ids = idsStr.split('|');
@@ -600,8 +562,8 @@ app.get('/occupations/:ids', (req, res) => {
 });
 
 app.get('/occupation/:id', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		const id = req.params.id;
 		const details = { '_id': new ObjectID(id) };
 		db.collection('occupations').findOne(details, (err, item) => {
@@ -617,8 +579,8 @@ app.get('/occupation/:id', (req, res) => {
 });
 
 app.post('/add-occupation', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
+	MongoClient.connect(database.url, { useNewUrlParser: true },  (err, client) => {
+		var db = client.db('dsdb-fake');
 		db.collection('occupations').insert(req.body, (err, result) => {
 			if (err) {
 				res.send({ 'error': 'An error has occurred.' });
@@ -630,87 +592,5 @@ app.post('/add-occupation', (req, res) => {
 	});
 });
 // END occupation functions
-
-// BEGIN meeting functions
-app.get('/meetings/', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
-		db.collection('meetings').find({}).toArray((err, items) => {
-			client.close();
-			if (err) {
-				res.send({ 'error': 'An error has occurred.' });
-			}
-			else {
-				res.status(200).send(items);
-			}
-		});
-	});
-});
-
-app.get('/meetings-ym/:y/:m', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var year = req.params.y;
-		var month = req.params.m;
-		if (month.length == 1) {
-			month = '0' + month;
-		}
-		const ym = year + "-" + month;
-		const details = { 'date': { '$regex': "^" + ym } };
-		var db = client.db('dsdb');
-		db.collection('meetings').find(details)
-			.toArray((err, items) => {
-				if (err) {
-					res.send({ 'error': 'An error has occurred.' });
-				}
-				else {
-					res.status(200).send(items);
-				}
-			});
-	});
-});
-
-
-app.post('/add-meeting', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
-		db.collection('meetings').insert(req.body, (err, result) => {
-			if (err) {
-				res.send({ 'error': 'An error has occurred.' });
-			}
-			else {
-				res.send(result.ops[0]);
-			}
-		});
-	});
-});
-
-app.post('/update-meeting-mems', (req, res) => {
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
-
-		//const id = req.params.id;
-		//const filter = { '_id': new ObjectID(id) };
-		console.log(`req.body: ${req.body}`);
-
-		/*db.collection('meetings').updateOne(req.body, (err, result) => {
-			if (err) {
-				res.send({ 'error': 'An error has occurred.' });
-			}
-			else {
-				res.send(result.ops[0]);
-			}
-		}); */
-	});
-});
-
-app.post('/set-meeting-attendance', (req, res) => {
-	var _id = req.body._id;
-	var member_id = req.body.member_id;
-	var attendance = req.body.attendance;
-	MongoClient.connect(database.url, { useNewUrlParser: true }, (err, client) => {
-		var db = client.db('dsdb');
-	});
-});
-// END meeting functions
 
 exports.api = functions.https.onRequest(app);

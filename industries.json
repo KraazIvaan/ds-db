@@ -1,0 +1,15 @@
+{"_id":{"$oid":"5c6a15539a37d800027135fd"},"name":"Legal"}
+{"_id":{"$oid":"5c8b17f25ead7c0002d0f6ce"},"name":"Biotech"}
+{"_id":{"$oid":"5c8ea49d1e52e80002582ca2"},"name":"Healthcare"}
+{"_id":{"$oid":"5c8ea4a51e52e80002582ca3"},"name":"Academia"}
+{"_id":{"$oid":"5c8ea4ab1e52e80002582ca4"},"name":"Manufacturing"}
+{"_id":{"$oid":"5c8ea4b01e52e80002582ca5"},"name":"Technology"}
+{"_id":{"$oid":"5c8ea4c31e52e80002582ca6"},"name":"Transportation"}
+{"_id":{"$oid":"5c8ea4d81e52e80002582ca7"},"name":"Nonprofit"}
+{"_id":{"$oid":"5c8ea4eb1e52e80002582ca8"},"name":"Retail"}
+{"_id":{"$oid":"5c8ea5021e52e80002582ca9"},"name":"Telecommunications"}
+{"_id":{"$oid":"5c8ea5281e52e80002582caa"},"name":"E-commerce"}
+{"_id":{"$oid":"5c8ea53d1e52e80002582cab"},"name":"Hospitality"}
+{"_id":{"$oid":"5c8ea54f1e52e80002582cac"},"name":"SAAS"}
+{"_id":{"$oid":"5c91d5796cff160002c40f04"},"name":"Social Work"}
+{"_id":{"$oid":"5c91d5896cff160002c40f05"},"name":"Education"}

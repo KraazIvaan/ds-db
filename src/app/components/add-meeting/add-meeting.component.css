@@ -1,0 +1,73 @@
+.page-title {
+	font-family: Arial;
+	margin: 0px;
+	padding-bottom: 5px;
+}
+
+.member-col {
+  float: left;
+	width: calc(100% - 10px);
+	max-height: calc(100% - 12px);
+	overflow: auto;
+  border: 1px solid black;
+  margin: 0px;
+  padding: 5px 0px 5px 5px;
+  background-color: #FFFFFF;
+}
+
+.accordion {
+	margin-bottom: 5px;
+}
+.accordion-section {
+	font-family: Arial;
+	border: 1px solid black;
+}
+
+.accordion-section-head {
+	height: 25px;
+	font-family: Arial;
+	background-color: #AAAAFF;
+	padding: 5px 0px 0px 5px;
+}
+
+.accordion-section-body {
+	font-family: Arial;
+	max-height: 100%;
+	background-color: #FFAAAA;
+	display: none;
+	padding: 5px 0px 0px 5px;
+}
+
+/* Contact Information */
+#body-1 {
+  height: 350px;
+  display: block;
+}
+
+/* Current / Most Recent Employment */
+#body-2 {
+  
+}
+
+/* Skills & History */
+#body-3 {
+  
+}
+
+/* Group Interaction */
+#body-4 {
+  
+}
+
+/* Goals & Targets*/
+#body-5 {
+  
+}
+
+.input {
+	width: 500px;
+}
+
+.input-topic {
+	width: 1000px;
+}
