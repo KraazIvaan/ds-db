@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Occupation } from '../../classes/occupation';
 import { OccupationService } from '../../services/occupation/occupation.service';
 
-import * as firebase from 'firebase/app';
+//import * as firebase from 'firebase/app';// commented for upgrade 13mar2021
 
 @Component({
   selector: 'list',
@@ -45,6 +45,8 @@ export class OccupationListComponent {
   }
   
   ngOnInit(): void {
+    // commented for upgrade 13mar2021
+    /*
     var user = firebase.auth().currentUser;
     if (user != null) {
       this.email = user.email;
@@ -52,6 +54,7 @@ export class OccupationListComponent {
     this.editedOccupation = {_id:'',name:''};
     this.selectedOccupation = {_id:'',name:''};
     this.getOccupations();
+    */
   }
   
   filter(name): boolean {

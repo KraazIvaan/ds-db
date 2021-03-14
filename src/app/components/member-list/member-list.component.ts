@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Member } from '../../classes/member';
 import { MemberService } from '../../services/member/member.service';
 
-import * as firebase from 'firebase/app';
+//import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'list',
@@ -70,11 +70,14 @@ export class MemberListComponent {
   }
 
   ngOnInit(): void {
+    // commented for upgrade 13mar2021
+    /*
     var user = firebase.auth().currentUser;
     if (user != null) {
       this.email = user.email;
     }
     this.getMembers();
+    */
   }
 
   onViewMemberDS(member: Member): void {

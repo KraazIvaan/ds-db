@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Member } from '../../classes/member';
 import { MemberService } from '../../services/member/member.service';
 
-import * as firebase from 'firebase';
+//import * as firebase from 'firebase';// commented for upgrade 13mar2021
 
 @Component({
   selector: 'app-photo-upload',
@@ -30,12 +30,14 @@ export class PhotoUploadComponent implements OnInit {
 	}
 
 	onSubmit() {
+		// commented for upgrade 13mar2021
+		/*
 		var storageRef = firebase.storage().ref();
 		var filename = 'photos/' + this.id + '.jpg';
 		var photoRef = storageRef.child(filename)
 		photoRef.put(this.file).then((snapshot) => {
 			//console.log('Photo uploaded');
 			this.message = "Photo uploaded.";
-		});
+		});*/
 	}
 }

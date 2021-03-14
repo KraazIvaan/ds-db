@@ -13,7 +13,7 @@ import { MeetingService } from '../../services/meeting/meeting.service';
 // File uploader
 //const URL = 'https://rm-ds-db.firebaseapp.com/api/upload';
 
-import * as firebase from 'firebase';
+//import * as firebase from 'firebase';// commented for upgrade 13mar2021
 //import * as firebase from 'firebase/storage';
 
 

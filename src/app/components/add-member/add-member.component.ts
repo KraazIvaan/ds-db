@@ -21,7 +21,7 @@ import { OccupationService } from '../../services/occupation/occupation.service'
 // File uploader
 //const URL = 'https://rm-ds-db.firebaseapp.com/api/upload';
 
-import * as firebase from 'firebase';
+//import * as firebase from 'firebase';// commented for upgrade 13mar2021
 //import * as firebase from 'firebase/storage';
 
 
@@ -158,11 +158,14 @@ export class AddMemberComponent implements OnInit {
 	}
 
 	uploadPhoto() {
+    // commented for upgrade 13mar2021
+    /*
 		var storageRef = firebase.storage().ref();
 		var photoRef = storageRef.child('photos/test.jpg')
 		photoRef.put(this.file).then(function(snapshot) {
 			console.log('Uploaded a blob or file!');
 		});
+    */
 	}
 
   submit(): void {

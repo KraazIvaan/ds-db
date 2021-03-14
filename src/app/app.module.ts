@@ -7,9 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 // BEGIN imports for auth
 import { environment } from '../environments/environment';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+//import { AngularFireModule } from 'angularfire2'; // commented for upgrade 13mar2021
+//import { AngularFireDatabaseModule } from 'angularfire2/database'; // commented for upgrade 13mar2021
+//import { AngularFireAuthModule } from 'angularfire2/auth'; // commented for upgrade 13mar2021
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuard } from './services/auth-guard/auth-guard.service';
 // END imports for auth
@@ -59,9 +59,9 @@ import { OrganizationService } from './services/organization/organization.servic
 		ReactiveFormsModule,
     AppRoutingModule,
     //AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-		AngularFireAuthModule,
+    //AngularFireModule.initializeApp(environment.firebase), // commented for upgrade 13mar2021
+    //AngularFireDatabaseModule, // commented for upgrade 13mar2021
+		//AngularFireAuthModule, // commented for upgrade 13mar2021
 		//FileUploadModule
   ],
   declarations: [

@@ -45,6 +45,8 @@ export class MeetingListComponent implements OnInit {
 	}
  
 	getCurrentUser(): void {
+    // commented out for upgrade 13mar2021
+    /*
 		var email = this.authService.getCurrUserEmail();
 		if(email != false) {
 			this.memberService.getMemberFromEmail(email).subscribe(member => {
@@ -52,6 +54,7 @@ export class MeetingListComponent implements OnInit {
 				this.member_id = member._id;
 			})
 		}
+    */
 	}
 
 	initializeAttendanceForm(): void {

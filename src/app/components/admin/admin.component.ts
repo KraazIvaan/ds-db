@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Member } from '../../classes/member';
 import { MemberService } from '../../services/member/member.service';
 
-import * as firebase from 'firebase/app';
+//import * as firebase from 'firebase/app';// commented for upgrade 13mar2021
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -22,6 +22,8 @@ export class AdminComponent implements OnInit {
 	) { }
 
   ngOnInit() {
+		// commented for upgrade 13mar2021
+		/*
     var user = firebase.auth().currentUser;
     
     if (user != null) {
@@ -32,7 +34,7 @@ export class AdminComponent implements OnInit {
 					return element.email1 == this.email;
 				})
 			});
-    }
+    }*/
 	}
 	
 	onEdit(): void {

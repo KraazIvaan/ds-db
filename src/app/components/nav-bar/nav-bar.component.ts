@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+//import { AngularFireAuth } from 'angularfire2/auth';
+//import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../../services/auth/auth.service';
@@ -39,6 +39,8 @@ export class NavBarComponent implements OnInit {
 		}
 		*/
 		var email = this.authService.getCurrUserEmail();
+		// commented out, since errors showing 13mar2021
+		/*
 		if(email != false) {
 			this.email = email;
 			this.memberService.getMemberFromEmail(email).subscribe(member => {
@@ -46,7 +48,7 @@ export class NavBarComponent implements OnInit {
 				this.first = member.first;
 				this.last = member.last;
 			})
-		}
+		}*/
 	}
 	
 	select(id: number) {

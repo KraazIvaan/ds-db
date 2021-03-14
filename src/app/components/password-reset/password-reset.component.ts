@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
-import * as firebase from 'firebase/app';
+//import * as firebase from 'firebase/app';// commented for upgrade 13mar2021
 
 @Component({
   selector: 'password-reset',
@@ -17,6 +17,8 @@ export class PasswordResetComponent implements OnInit {
 	constructor(private authService: AuthService, private router: Router) { }
 	
 	sendPasswordResetEmail() {
+		// commented for upgrade 13mar2021
+		/*
 		var auth = firebase.auth();
 		auth.sendPasswordResetEmail(this.email).then(() => {
 			this.message = "Reset link sent.  Please check your email.";
@@ -33,7 +35,7 @@ export class PasswordResetComponent implements OnInit {
 					console.log('error code: ' + error.code);
 				break;
 			}
-		});
+		});*/
 	}
 
   ngOnInit() { }

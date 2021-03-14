@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Organization } from '../../classes/organization';
 import { OrganizationService } from '../../services/organization/organization.service';
 
-import * as firebase from 'firebase/app';
+//import * as firebase from 'firebase/app';// commented for upgrade 13mar2021
 
 @Component({
   selector: 'list',
@@ -32,6 +32,8 @@ export class OrganizationListComponent {
   }
 
   ngOnInit(): void {
+    // commented for upgrade 13mar2021
+    /*
     var user = firebase.auth().currentUser;
     if (user != null) {
       this.email = user.email;
@@ -39,6 +41,7 @@ export class OrganizationListComponent {
     this.editedOrganization = {_id:'',name:'',abbreviation:''};
     this.selectedOrganization = {_id:'',name:'',abbreviation:''};
     this.getOrganizations();
+    */
   }
 
   sortFunc(a,b): number {

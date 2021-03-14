@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Industry } from '../../classes/industry';
 import { IndustryService } from '../../services/industry/industry.service';
 
-import * as firebase from 'firebase/app';
+//import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'list',
@@ -45,6 +45,8 @@ export class IndustryListComponent {
   }
   
   ngOnInit(): void {
+    // commented for upgrade 13mar2021
+    /*
     var user = firebase.auth().currentUser;
     if (user != null) {
       this.email = user.email;
@@ -52,6 +54,7 @@ export class IndustryListComponent {
     this.editedIndustry = {_id:'',name:''};
     this.selectedIndustry = {_id:'',name:''};
     this.getIndustries();
+    */
   }
   
   filter(name): boolean {
