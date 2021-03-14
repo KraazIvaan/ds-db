@@ -15,7 +15,7 @@ import { AuthGuard } from './services/auth-guard/auth-guard.service';
 // END imports for auth
 
 // import for file upload
-//import { FileUploadModule } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { FileSelectDirective } from 'ng2-file-upload';
 
 // Components
@@ -62,7 +62,7 @@ import { OrganizationService } from './services/organization/organization.servic
     //AngularFireModule.initializeApp(environment.firebase), // commented for upgrade 13mar2021
     //AngularFireDatabaseModule, // commented for upgrade 13mar2021
 		//AngularFireAuthModule, // commented for upgrade 13mar2021
-		//FileUploadModule
+		FileUploadModule
   ],
   declarations: [
 		AddMeetingComponent,
@@ -72,7 +72,7 @@ import { OrganizationService } from './services/organization/organization.servic
     BlankComponent,
     CompanyListComponent,
 		CompanyMembersComponent,
-		FileSelectDirective,
+		//FileSelectDirective,
     HeaderComponent,
     IndustryListComponent,
     OccupationListComponent,
