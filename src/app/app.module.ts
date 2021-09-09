@@ -1,5 +1,12 @@
-import { NgModule }        from '@angular/core';
 import { BrowserModule }   from '@angular/platform-browser';
+import { NgModule }        from '@angular/core';
+import { Component } from '@angular/core';
+
+import { AngularFireModule } from '@angular/fire'
+import { AngularFireAuth } from '@angular/fire/auth'; // commented for upgrade 13mar2021
+import firebase from 'firebase/app';
+
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -54,6 +61,7 @@ import { OrganizationService } from './services/organization/organization.servic
 @NgModule({
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
     HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
@@ -61,7 +69,6 @@ import { OrganizationService } from './services/organization/organization.servic
     //AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     //AngularFireModule.initializeApp(environment.firebase), // commented for upgrade 13mar2021
     //AngularFireDatabaseModule, // commented for upgrade 13mar2021
-		//AngularFireAuthModule, // commented for upgrade 13mar2021
 		FileUploadModule
   ],
   declarations: [

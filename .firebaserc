@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "rm-ds-db"
+  },
+  "targets": {
+    "rm-ds-db": {
+      "hosting": {
+        "ds-db-v2": [
+          "rm-ds-db"
+        ]
+      }
+    }
   }
 }

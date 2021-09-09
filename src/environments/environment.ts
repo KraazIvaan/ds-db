@@ -11,6 +11,7 @@ export const environment = {
     databaseURL: "https://rm-ds-db.firebaseio.com",
     projectId: "rm-ds-db",
     storageBucket: "rm-ds-db.appspot.com",
-    messagingSenderId: "680883852831"
+    messagingSenderId: "680883852831",
+    appId: "1:680883852831:web:521741409247733464e72a"
   }
 };

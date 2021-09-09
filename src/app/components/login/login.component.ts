@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
 
   signInWithEmail() {
 		// commented out for upgrade 13mar2021
-		/*
     this.authService.signInRegular(this.user.email, this.user.password)
     .then((res) => {
        //console.log(res);
@@ -41,7 +40,6 @@ export class LoginComponent implements OnInit {
 				break;
 			}
 		});
-		*/
   }
 
   ngOnInit() { }
